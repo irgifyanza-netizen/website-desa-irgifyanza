@@ -3,1692 +3,1520 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Desa Nusantara Indah — Portal Resmi Desa</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>SIPADES — Sistem Informasi Pemerintahan Desa Kecamatan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
 <style>
-/* ══════════════════════════════════════════════
-   TOKEN SYSTEM
-   Palette: Deep Forest Green / Warm Gold / Cream / Charcoal
-   Signature: Batik-inspired geometric border motif as section dividers
-══════════════════════════════════════════════ */
-:root {
-  --forest:    #1a3a2a;
-  --forest-mid:#2d5a40;
-  --forest-lt: #3d7a56;
-  --gold:      #c8972a;
-  --gold-lt:   #e4b84a;
-  --gold-pale: #f5e8c8;
-  --cream:     #faf7f0;
-  --paper:     #f0ead8;
-  --charcoal:  #1c1c1c;
-  --slate:     #4a5568;
-  --muted:     #8a9ba8;
-  --white:     #ffffff;
-  --card-bg:   rgba(255,255,255,0.97);
-  --shadow-sm: 0 2px 12px rgba(26,58,42,0.08);
-  --shadow-md: 0 8px 32px rgba(26,58,42,0.12);
-  --shadow-lg: 0 24px 64px rgba(26,58,42,0.18);
-  --radius:    12px;
-  --radius-lg: 20px;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--cream);
-  color: var(--charcoal);
-  overflow-x: hidden;
-}
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--paper); }
-::-webkit-scrollbar-thumb { background: var(--forest-lt); border-radius: 3px; }
-
-/* ══════════════════════════════════════════════
-   NAVIGATION
-══════════════════════════════════════════════ */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  transition: all 0.4s ease;
-  padding: 0 2rem;
-}
-
-nav.scrolled {
-  background: rgba(26,58,42,0.97);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
-}
-
-.nav-inner {
-  max-width: 1280px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 72px;
-}
-
-.nav-logo {
-  display: flex; align-items: center; gap: 12px;
-  text-decoration: none;
-}
-
-.nav-logo-icon {
-  width: 42px; height: 42px;
-  background: var(--gold);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem;
-}
-
-.nav-logo-text { color: var(--white); }
-.nav-logo-text .desa { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; line-height: 1; }
-.nav-logo-text .tagline { font-size: 0.65rem; color: var(--gold-lt); letter-spacing: 0.08em; text-transform: uppercase; }
-
-.nav-links {
-  display: flex; gap: 0; list-style: none;
-}
-
-.nav-links a {
-  color: rgba(255,255,255,0.85);
-  text-decoration: none;
-  font-size: 0.85rem; font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  transition: all 0.2s;
-  letter-spacing: 0.02em;
-}
-
-.nav-links a:hover { color: var(--gold-lt); background: rgba(255,255,255,0.08); }
-
-.nav-cta {
-  background: var(--gold) !important;
-  color: var(--forest) !important;
-  font-weight: 600 !important;
-  padding: 0.5rem 1.2rem !important;
-}
-
-.nav-cta:hover { background: var(--gold-lt) !important; }
-
-.hamburger {
-  display: none; flex-direction: column; gap: 5px;
-  cursor: pointer; padding: 8px;
-}
-.hamburger span { width: 24px; height: 2px; background: white; border-radius: 2px; transition: 0.3s; }
-
-/* ══════════════════════════════════════════════
-   HERO SECTION
-══════════════════════════════════════════════ */
-#home {
-  min-height: 100vh;
-  background: linear-gradient(160deg, var(--forest) 0%, var(--forest-mid) 50%, #1a4a30 100%);
-  position: relative; overflow: hidden;
-  display: flex; align-items: center;
-}
-
-/* Batik geometric motif background */
-.hero-pattern {
-  position: absolute; inset: 0;
-  opacity: 0.06;
-  background-image:
-    repeating-linear-gradient(45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%),
-    repeating-linear-gradient(-45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%);
-  background-size: 40px 40px;
-}
-
-.hero-glow {
-  position: absolute;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(200,151,42,0.15) 0%, transparent 70%);
-  top: -100px; right: -100px;
-  animation: pulse-glow 6s ease-in-out infinite;
-}
-
-@keyframes pulse-glow {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.1); opacity: 1; }
-}
-
-.hero-inner {
-  max-width: 1280px; margin: 0 auto; padding: 0 2rem;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
-  align-items: center; width: 100%; padding-top: 80px;
-}
-
-.hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(200,151,42,0.15);
-  border: 1px solid rgba(200,151,42,0.3);
-  border-radius: 100px;
-  padding: 6px 16px;
-  font-size: 0.75rem; font-weight: 600;
-  color: var(--gold-lt);
-  letter-spacing: 0.1em; text-transform: uppercase;
-  margin-bottom: 1.5rem;
-}
-
-.hero-eyebrow .dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: blink 2s infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-.hero-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.8rem, 5vw, 4.5rem);
-  font-weight: 900;
-  color: var(--white);
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
-}
-
-.hero-title em { color: var(--gold); font-style: italic; }
-
-.hero-desc {
-  color: rgba(255,255,255,0.72);
-  font-size: 1.05rem; line-height: 1.75;
-  margin-bottom: 2.5rem;
-  max-width: 480px;
-}
-
-.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-.btn-primary {
-  background: var(--gold);
-  color: var(--forest);
-  border: none; border-radius: var(--radius);
-  padding: 0.85rem 2rem;
-  font-size: 0.9rem; font-weight: 700;
-  cursor: pointer; text-decoration: none;
-  display: inline-flex; align-items: center; gap: 8px;
-  transition: all 0.25s;
-  letter-spacing: 0.02em;
-}
-.btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,151,42,0.4); }
-
-.btn-outline {
-  background: transparent;
-  color: var(--white);
-  border: 1.5px solid rgba(255,255,255,0.3);
-  border-radius: var(--radius);
-  padding: 0.85rem 2rem;
-  font-size: 0.9rem; font-weight: 500;
-  cursor: pointer; text-decoration: none;
-  display: inline-flex; align-items: center; gap: 8px;
-  transition: all 0.25s;
-}
-.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-
-.hero-stats {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-  margin-top: 3rem;
-  background: rgba(255,255,255,0.1);
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.hero-stat {
-  padding: 1.2rem 1rem;
-  text-align: center;
-  background: rgba(255,255,255,0.04);
-}
-
-.hero-stat .num {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem; font-weight: 700;
-  color: var(--gold);
-  display: block;
-}
-.hero-stat .lbl { font-size: 0.72rem; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
-
-/* Hero right: banner cards */
-.hero-right {
-  position: relative;
-}
-
-.banner-card {
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  cursor: pointer;
-  transition: all 0.3s;
-  display: flex; gap: 1rem; align-items: center;
-}
-.banner-card:hover { background: rgba(255,255,255,0.13); transform: translateX(-4px); border-color: rgba(200,151,42,0.4); }
-
-.banner-card.featured {
-  border-color: var(--gold);
-  background: rgba(200,151,42,0.12);
-}
-
-.banner-thumb {
-  width: 64px; height: 64px; border-radius: 10px;
-  flex-shrink: 0; overflow: hidden;
-  background: linear-gradient(135deg, var(--forest-lt), var(--gold));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.8rem;
-}
-
-.banner-info { flex: 1; }
-.banner-info .tag { font-size: 0.65rem; font-weight: 600; color: var(--gold-lt); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
-.banner-info h3 { color: var(--white); font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
-.banner-info p { color: rgba(255,255,255,0.55); font-size: 0.78rem; line-height: 1.4; }
-.banner-date { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); margin-top: 4px; }
-
-/* ══════════════════════════════════════════════
-   SECTION COMMONS
-══════════════════════════════════════════════ */
-.section { padding: 5rem 2rem; }
-.section-inner { max-width: 1280px; margin: 0 auto; }
-
-.section-eyebrow {
-  font-size: 0.72rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.15em;
-  color: var(--gold);
-  margin-bottom: 0.75rem;
-}
-
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 700;
-  color: var(--forest);
-  line-height: 1.2;
-  margin-bottom: 1rem;
-}
-
-.section-desc {
-  color: var(--slate);
-  font-size: 1rem; line-height: 1.7;
-  max-width: 560px;
-  margin-bottom: 3rem;
-}
-
-/* Batik divider */
-.batik-divider {
-  width: 100%; height: 24px;
-  background-image: repeating-linear-gradient(
-    90deg,
-    var(--gold) 0, var(--gold) 2px,
-    transparent 2px, transparent 16px,
-    var(--forest-lt) 16px, var(--forest-lt) 18px,
-    transparent 18px, transparent 32px
-  );
-  opacity: 0.25;
-  margin: 0;
-}
-
-/* ══════════════════════════════════════════════
-   BERITA SECTION
-══════════════════════════════════════════════ */
-#berita { background: var(--white); }
-
-.search-bar {
-  display: flex; gap: 1rem; align-items: center;
-  background: var(--cream);
-  border: 2px solid var(--paper);
-  border-radius: var(--radius);
-  padding: 0.75rem 1rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
-
-.search-bar input {
-  flex: 1; min-width: 200px;
-  border: none; background: transparent;
-  font-size: 0.95rem; color: var(--charcoal);
-  font-family: 'Inter', sans-serif;
-  outline: none;
-}
-
-.search-bar input::placeholder { color: var(--muted); }
-
-.search-bar select {
-  border: 1px solid var(--paper);
-  background: var(--white);
-  border-radius: 8px;
-  padding: 0.45rem 0.75rem;
-  font-size: 0.85rem;
-  color: var(--slate);
-  cursor: pointer;
-  outline: none;
-  font-family: 'Inter', sans-serif;
-}
-
-.btn-search {
-  background: var(--forest);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0.5rem 1.2rem;
-  font-size: 0.85rem; font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.btn-search:hover { background: var(--forest-lt); }
-
-.news-featured {
-  display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.5rem;
-  margin-bottom: 3rem;
-}
-
-.news-big {
-  border-radius: var(--radius-lg); overflow: hidden;
-  box-shadow: var(--shadow-md);
-  cursor: pointer; transition: transform 0.3s;
-  position: relative;
-}
-.news-big:hover { transform: translateY(-4px); }
-
-.news-big-img {
-  height: 300px;
-  background: linear-gradient(135deg, #1a3a2a 0%, #3d7a56 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 5rem; position: relative;
-}
-
-.news-big-img::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
-}
-
-.news-big-content {
-  background: var(--card-bg);
-  padding: 1.5rem;
-}
-
-.news-small-list { display: flex; flex-direction: column; gap: 1rem; }
-
-.news-small {
-  display: flex; gap: 1rem;
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  padding: 1rem;
-  box-shadow: var(--shadow-sm);
-  cursor: pointer; transition: all 0.25s;
-  border: 1px solid var(--paper);
-}
-.news-small:hover { border-color: var(--gold); box-shadow: var(--shadow-md); }
-
-.news-small-thumb {
-  width: 72px; height: 72px; border-radius: 8px;
-  background: linear-gradient(135deg, var(--forest-lt), var(--gold));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem; flex-shrink: 0;
-}
-
-.news-small-info h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; line-height: 1.35; }
-.news-small-info p { font-size: 0.78rem; color: var(--slate); line-height: 1.4; }
-
-.news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 1.5rem; }
-
-.news-card {
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--paper);
-  cursor: pointer; transition: all 0.3s;
-}
-.news-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--gold); }
-
-.news-card-img {
-  height: 160px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 3rem;
-}
-
-.news-card-body { padding: 1.25rem; }
-.news-badge {
-  display: inline-block;
-  font-size: 0.65rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  padding: 3px 10px;
-  border-radius: 100px;
-  margin-bottom: 0.75rem;
-}
-.badge-green { background: #e8f5e9; color: #2e7d32; }
-.badge-blue  { background: #e3f2fd; color: #1565c0; }
-.badge-orange{ background: #fff3e0; color: #e65100; }
-.badge-purple{ background: #f3e5f5; color: #6a1b9a; }
-
-.news-card-body h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; line-height: 1.4; }
-.news-card-body p { font-size: 0.82rem; color: var(--slate); line-height: 1.55; margin-bottom: 0.75rem; }
-.news-meta { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); }
-
-.category-tabs {
-  display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;
-}
-
-.cat-tab {
-  padding: 0.4rem 1rem;
-  border-radius: 100px;
-  font-size: 0.8rem; font-weight: 500;
-  cursor: pointer; border: 1.5px solid var(--paper);
-  background: transparent; color: var(--slate);
-  transition: all 0.2s; font-family: 'Inter', sans-serif;
-}
-.cat-tab.active, .cat-tab:hover { background: var(--forest); color: white; border-color: var(--forest); }
-
-/* ══════════════════════════════════════════════
-   MONOGRAFI SECTION
-══════════════════════════════════════════════ */
-#monografi { background: var(--cream); }
-
-.mono-tabs {
-  display: flex; gap: 0; margin-bottom: 3rem;
-  background: var(--paper);
-  border-radius: var(--radius);
-  padding: 4px;
-}
-.mono-tab {
-  flex: 1; padding: 0.65rem 1rem;
-  border: none; background: transparent;
-  font-size: 0.85rem; font-weight: 500;
-  cursor: pointer; border-radius: 8px;
-  color: var(--slate); transition: all 0.2s;
-  font-family: 'Inter', sans-serif;
-}
-.mono-tab.active { background: var(--forest); color: white; }
-
-.mono-panel { display: none; }
-.mono-panel.active { display: block; }
-
-.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
-.stat-card {
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  padding: 1.75rem;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--paper);
-  text-align: center;
-  position: relative; overflow: hidden;
-}
-.stat-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 4px;
-  background: linear-gradient(90deg, var(--forest), var(--gold));
-}
-.stat-card .icon { font-size: 2rem; margin-bottom: 0.75rem; }
-.stat-card .number {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem; font-weight: 700;
-  color: var(--forest); display: block;
-}
-.stat-card .label { font-size: 0.8rem; color: var(--slate); margin-top: 4px; }
-
-.chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-
-.chart-card {
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  padding: 1.75rem;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--paper);
-}
-
-.chart-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--forest); }
-
-.bar-chart { display: flex; flex-direction: column; gap: 0.85rem; }
-.bar-item { display: flex; align-items: center; gap: 0.75rem; }
-.bar-label { font-size: 0.8rem; color: var(--slate); width: 90px; flex-shrink: 0; }
-.bar-track { flex: 1; height: 10px; background: var(--paper); border-radius: 5px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 5px; transition: width 1s ease; }
-.bar-fill.green { background: linear-gradient(90deg, var(--forest), var(--forest-lt)); }
-.bar-fill.gold  { background: linear-gradient(90deg, var(--gold), var(--gold-lt)); }
-.bar-value { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--charcoal); width: 45px; text-align: right; }
-
-.donut-wrap { display: flex; align-items: center; gap: 1.5rem; }
-.donut-svg { flex-shrink: 0; }
-.donut-legend { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
-.legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; }
-.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-
-/* ══════════════════════════════════════════════
-   TENTANG DESA
-══════════════════════════════════════════════ */
-#tentang { background: var(--forest); position: relative; overflow: hidden; }
-#tentang::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: repeating-linear-gradient(45deg, rgba(200,151,42,0.03) 0, rgba(200,151,42,0.03) 1px, transparent 1px, transparent 40px),
-                    repeating-linear-gradient(-45deg, rgba(200,151,42,0.03) 0, rgba(200,151,42,0.03) 1px, transparent 1px, transparent 40px);
-}
-
-#tentang .section-title { color: var(--white); }
-#tentang .section-desc { color: rgba(255,255,255,0.65); }
-
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-
-.info-card {
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  margin-bottom: 1.5rem;
-  backdrop-filter: blur(10px);
-}
-.info-card h3 {
-  font-family: 'Playfair Display', serif;
-  color: var(--gold);
-  font-size: 1.1rem; margin-bottom: 1rem;
-  display: flex; align-items: center; gap: 0.5rem;
-}
-.info-card p { color: rgba(255,255,255,0.72); font-size: 0.9rem; line-height: 1.75; }
-
-.geo-list { list-style: none; }
-.geo-list li {
-  display: flex; justify-content: space-between;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  font-size: 0.88rem;
-}
-.geo-list li span:first-child { color: rgba(255,255,255,0.55); }
-.geo-list li span:last-child { color: var(--gold-lt); font-weight: 500; }
-
-/* Org chart */
-.org-chart { text-align: center; }
-.org-head {
-  display: inline-flex; flex-direction: column; align-items: center;
-  margin-bottom: 1rem;
-}
-.org-avatar {
-  width: 72px; height: 72px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold), var(--gold-lt));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.8rem; margin-bottom: 0.5rem;
-  border: 3px solid var(--gold);
-}
-.org-name { font-weight: 600; font-size: 0.85rem; color: white; }
-.org-role { font-size: 0.72rem; color: var(--gold-lt); }
-.org-line { width: 2px; height: 24px; background: rgba(200,151,42,0.4); margin: 0 auto; }
-.org-row { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
-.org-member {
-  display: flex; flex-direction: column; align-items: center;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px; padding: 1rem 1.25rem;
-  min-width: 120px;
-}
-.org-member .org-avatar { width: 52px; height: 52px; font-size: 1.3rem; }
-.org-member .org-name { font-size: 0.78rem; }
-
-/* Officials list */
-.official-list { display: flex; flex-direction: column; gap: 0.75rem; }
-.official-item {
-  display: flex; align-items: center; gap: 1rem;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px;
-  padding: 0.9rem 1.1rem;
-}
-.official-item .av { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--forest-lt), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
-.official-item .info h4 { font-size: 0.88rem; font-weight: 600; color: white; }
-.official-item .info p { font-size: 0.75rem; color: var(--gold-lt); }
-
-/* Galeri */
-.galeri-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
-.galeri-item {
-  border-radius: var(--radius);
-  overflow: hidden; aspect-ratio: 1;
-  cursor: pointer; position: relative;
-  transition: transform 0.3s;
-}
-.galeri-item:hover { transform: scale(1.03); }
-.galeri-item:hover .galeri-overlay { opacity: 1; }
-.galeri-item:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
-.galeri-bg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem; min-height: 180px; }
-.galeri-overlay { position: absolute; inset: 0; background: rgba(26,58,42,0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; color: white; font-size: 1.5rem; }
-
-/* Kegiatan */
-.kegiatan-list { display: flex; flex-direction: column; gap: 1rem; }
-.kegiatan-item {
-  display: flex; gap: 1.25rem; align-items: flex-start;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius);
-  padding: 1.25rem;
-}
-.kegiatan-date {
-  flex-shrink: 0; width: 54px; text-align: center;
-  background: var(--gold);
-  color: var(--forest);
-  border-radius: 8px; padding: 0.4rem;
-}
-.kegiatan-date .day { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; line-height: 1; }
-.kegiatan-date .mon { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
-.kegiatan-info h4 { font-size: 0.9rem; font-weight: 600; color: white; margin-bottom: 4px; }
-.kegiatan-info p { font-size: 0.78rem; color: rgba(255,255,255,0.55); }
-
-/* Saran form */
-.saran-form { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-lg); padding: 2rem; }
-.saran-form h3 { font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 1.5rem; font-size: 1.2rem; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-.form-group label { font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.65); }
-.form-group input, .form-group textarea, .form-group select {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 8px;
-  padding: 0.7rem 0.9rem;
-  color: white; font-size: 0.9rem;
-  font-family: 'Inter', sans-serif;
-  outline: none; transition: border 0.2s;
-}
-.form-group input:focus, .form-group textarea:focus { border-color: var(--gold); }
-.form-group textarea { resize: vertical; min-height: 100px; }
-.form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
-
-/* ══════════════════════════════════════════════
-   LAPAK KAMPUNG
-══════════════════════════════════════════════ */
-#lapak { background: var(--white); }
-
-.lapak-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; }
-
-.product-cats {
-  display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;
-}
-.prod-cat {
-  padding: 0.45rem 1rem;
-  border-radius: 100px;
-  font-size: 0.8rem; font-weight: 500;
-  cursor: pointer;
-  border: 1.5px solid var(--paper);
-  background: transparent; color: var(--slate);
-  display: flex; align-items: center; gap: 6px;
-  transition: all 0.2s; font-family: 'Inter', sans-serif;
-}
-.prod-cat.active, .prod-cat:hover { background: var(--forest); color: white; border-color: var(--forest); }
-
-.product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-
-.product-card {
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--paper);
-  cursor: pointer; transition: all 0.3s;
-}
-.product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--gold); }
-
-.product-img {
-  height: 180px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 4rem; position: relative;
-}
-.product-badge-avail {
-  position: absolute; top: 10px; right: 10px;
-  font-size: 0.65rem; font-weight: 700;
-  padding: 3px 8px; border-radius: 100px;
-}
-.avail { background: #e8f5e9; color: #2e7d32; }
-.kosong { background: #fce4ec; color: #c62828; }
-
-.product-body { padding: 1.25rem; }
-.product-name { font-size: 0.95rem; font-weight: 700; color: var(--charcoal); margin-bottom: 4px; }
-.product-seller { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 4px; }
-.product-price { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--forest); }
-.product-unit { font-size: 0.75rem; color: var(--muted); font-family: 'Inter', sans-serif; font-weight: 400; }
-.product-actions { display: flex; gap: 0.5rem; margin-top: 1rem; }
-
-.btn-wa {
-  flex: 1;
-  background: #25D366;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0.6rem;
-  font-size: 0.8rem; font-weight: 600;
-  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;
-  transition: background 0.2s; font-family: 'Inter', sans-serif;
-}
-.btn-wa:hover { background: #20bc59; }
-
-.btn-share {
-  background: var(--paper);
-  color: var(--slate);
-  border: none;
-  border-radius: 8px;
-  padding: 0.6rem 0.8rem;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.btn-share:hover { background: var(--paper); color: var(--forest); }
-
-/* ══════════════════════════════════════════════
-   FOOTER
-══════════════════════════════════════════════ */
-footer {
-  background: var(--charcoal);
-  color: rgba(255,255,255,0.7);
-  padding: 4rem 2rem 2rem;
-}
-
-.footer-inner {
-  max-width: 1280px; margin: 0 auto;
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
-  margin-bottom: 3rem;
-}
-
-.footer-brand .logo-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem; font-weight: 700;
-  color: white; margin-bottom: 0.5rem;
-}
-.footer-brand p { font-size: 0.85rem; line-height: 1.7; }
-
-.footer-col h4 {
-  color: var(--gold-lt);
-  font-size: 0.8rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.1em;
-  margin-bottom: 1rem;
-}
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-.footer-col ul a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
-.footer-col ul a:hover { color: var(--gold-lt); }
-
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.08);
-  padding-top: 1.5rem;
-  display: flex; justify-content: space-between; align-items: center;
-  font-size: 0.8rem;
-  max-width: 1280px; margin: 0 auto;
-}
-
-/* ══════════════════════════════════════════════
-   MODAL
-══════════════════════════════════════════════ */
-.modal-overlay {
-  position: fixed; inset: 0; z-index: 2000;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(8px);
-  display: flex; align-items: center; justify-content: center;
-  padding: 1rem;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.3s;
-}
-.modal-overlay.open { opacity: 1; pointer-events: all; }
-
-.modal {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  max-width: 680px; width: 100%;
-  max-height: 90vh; overflow-y: auto;
-  transform: translateY(20px);
-  transition: transform 0.3s;
-}
-.modal-overlay.open .modal { transform: translateY(0); }
-
-.modal-header {
-  padding: 2rem; border-bottom: 1px solid var(--paper);
-  display: flex; justify-content: space-between; align-items: flex-start;
-}
-.modal-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--forest); }
-.modal-close { border: none; background: var(--paper); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; flex-shrink: 0; }
-.modal-body { padding: 2rem; }
-.modal-img { width: 100%; height: 220px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 5rem; margin-bottom: 1.5rem; }
-.modal-meta { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem; }
-.modal-content p { font-size: 0.9rem; color: var(--slate); line-height: 1.75; margin-bottom: 1rem; }
-.modal-actions { padding: 1.5rem 2rem; border-top: 1px solid var(--paper); display: flex; gap: 1rem; }
-
-/* ══════════════════════════════════════════════
-   TOAST
-══════════════════════════════════════════════ */
-.toast {
-  position: fixed; bottom: 2rem; right: 2rem; z-index: 3000;
-  background: var(--forest);
-  color: white;
-  padding: 0.85rem 1.5rem;
-  border-radius: var(--radius);
-  font-size: 0.85rem;
-  box-shadow: var(--shadow-lg);
-  transform: translateY(100px); opacity: 0;
-  transition: all 0.3s;
-  max-width: 300px;
-}
-.toast.show { transform: translateY(0); opacity: 1; }
-
-/* ══════════════════════════════════════════════
-   ANIMATIONS
-══════════════════════════════════════════════ */
-.fade-up {
-  opacity: 0; transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.fade-up.visible { opacity: 1; transform: translateY(0); }
-
-/* ══════════════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════════════ */
-@media (max-width: 1024px) {
-  .stat-grid { grid-template-columns: repeat(2, 1fr); }
-  .product-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
-}
-
-@media (max-width: 768px) {
-  .hero-inner { grid-template-columns: 1fr; gap: 2rem; padding-top: 100px; }
-  .hero-right { display: none; }
-  .hero-stats { grid-template-columns: repeat(3, 1fr); }
-  .news-featured { grid-template-columns: 1fr; }
-  .news-grid { grid-template-columns: 1fr 1fr; }
-  .chart-row { grid-template-columns: 1fr; }
-  .about-grid { grid-template-columns: 1fr; }
-  .galeri-grid { grid-template-columns: repeat(2, 1fr); }
-  .galeri-item:first-child { grid-column: span 1; grid-row: span 1; }
-  .form-row { grid-template-columns: 1fr; }
-  .footer-inner { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
-  .nav-links.open {
-    display: flex; flex-direction: column;
-    position: absolute; top: 72px; left: 0; right: 0;
-    background: rgba(26,58,42,0.98);
-    padding: 1rem;
-    gap: 0.5rem;
-  }
-}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0A1628;--navy2:#0F1F3D;--navy3:#162850;
+  --blue:#1E6FD9;--blue2:#2980E8;--blue3:#4B9EF5;
+  --gold:#D4A843;--gold2:#E8C06A;--gold3:#F5D98A;
+  --slate:#EEF2F8;--slate2:#DDE5F0;--slate3:#C8D5E8;
+  --white:#FFFFFF;--text:#1A2540;--muted:#6B7A99;--light:#F8FAFD;
+  --green:#1A9C5B;--red:#D9373D;--orange:#E87C1E;
+  --sidebar-w:260px;--radius:12px;--radius-sm:8px;
+}
+body{font-family:'Inter',sans-serif;background:var(--light);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* LANDING PAGE */
+#landing{display:flex;flex-direction:column;min-height:100vh;background:var(--navy)}
+.land-nav{display:flex;align-items:center;justify-content:space-between;padding:20px 48px;position:sticky;top:0;z-index:100;background:rgba(10,22,40,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(212,168,67,0.15)}
+.land-logo{display:flex;align-items:center;gap:12px}
+.land-logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--navy)}
+.land-logo-text{font-family:'Playfair Display',serif;font-size:20px;color:var(--white);font-weight:700;letter-spacing:-0.3px}
+.land-logo-sub{font-size:10px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-top:-2px}
+.land-nav-links{display:flex;gap:32px;align-items:center}
+.land-nav-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.land-nav-links a:hover{color:var(--gold)}
+.land-btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;transition:opacity .2s}
+.land-btn-primary:hover{opacity:0.9}
+
+.land-hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 48px 60px;position:relative;overflow:hidden}
+.land-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%, rgba(30,111,217,0.12) 0%, transparent 70%)}
+.land-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(212,168,67,0.12);border:1px solid rgba(212,168,67,0.3);color:var(--gold);padding:8px 20px;border-radius:40px;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:32px}
+.land-hero h1{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,68px);color:var(--white);line-height:1.1;font-weight:700;max-width:800px;margin-bottom:24px}
+.land-hero h1 span{color:var(--gold)}
+.land-hero p{font-size:18px;color:rgba(255,255,255,0.6);max-width:560px;line-height:1.7;margin-bottom:48px}
+.land-hero-btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.btn-land-main{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);padding:16px 36px;border-radius:10px;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:transform .2s,opacity .2s}
+.btn-land-main:hover{transform:translateY(-2px);opacity:0.95}
+.btn-land-outline{background:transparent;color:var(--white);padding:16px 36px;border-radius:10px;font-size:15px;font-weight:500;border:1px solid rgba(255,255,255,0.25);cursor:pointer;transition:border-color .2s,background .2s}
+.btn-land-outline:hover{border-color:var(--gold);background:rgba(212,168,67,0.08)}
+
+.land-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid rgba(255,255,255,0.08);margin:0 48px}
+.land-stat{padding:36px 32px;text-align:center;border-right:1px solid rgba(255,255,255,0.08)}
+.land-stat:last-child{border-right:none}
+.land-stat-num{font-family:'Playfair Display',serif;font-size:40px;color:var(--gold);font-weight:700}
+.land-stat-lbl{font-size:12px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
+
+.land-features{background:var(--navy2);padding:80px 48px}
+.land-section-eyebrow{font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;font-weight:600;margin-bottom:16px;text-align:center}
+.land-section-title{font-family:'Playfair Display',serif;font-size:clamp(28px,3vw,42px);color:var(--white);text-align:center;font-weight:700;margin-bottom:16px}
+.land-section-sub{font-size:16px;color:rgba(255,255,255,0.5);text-align:center;max-width:520px;margin:0 auto 56px;line-height:1.6}
+.land-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.land-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:32px;transition:border-color .25s,background .25s;cursor:pointer}
+.land-card:hover{border-color:rgba(212,168,67,0.3);background:rgba(212,168,67,0.04)}
+.land-card-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:22px}
+.land-card-icon.blue{background:rgba(30,111,217,0.15);color:var(--blue3)}
+.land-card-icon.gold{background:rgba(212,168,67,0.15);color:var(--gold2)}
+.land-card-icon.green{background:rgba(26,156,91,0.15);color:#4DCB8A}
+.land-card h3{font-size:16px;color:var(--white);font-weight:600;margin-bottom:8px}
+.land-card p{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.6}
+.land-card-num{font-size:11px;color:rgba(212,168,67,0.5);font-weight:600;letter-spacing:1px;margin-bottom:12px}
+
+.land-footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);padding:40px 48px;display:flex;align-items:center;justify-content:space-between}
+.land-footer-copy{font-size:13px;color:rgba(255,255,255,0.35)}
+.land-footer-links{display:flex;gap:24px}
+.land-footer-links a{font-size:13px;color:rgba(255,255,255,0.35);text-decoration:none}
+
+/* APP LAYOUT */
+#app{display:none;height:100vh;overflow:hidden;flex-direction:row}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar-w);background:var(--navy);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;overflow-x:hidden;position:relative}
+.sidebar::after{content:'';position:absolute;top:0;right:0;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(212,168,67,0.2) 30%,rgba(212,168,67,0.2) 70%,transparent)}
+.sb-header{padding:24px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.sb-logo{display:flex;align-items:center;gap:10px}
+.sb-logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--navy);flex-shrink:0}
+.sb-logo-text{font-family:'Playfair Display',serif;font-size:17px;color:var(--white);font-weight:700}
+.sb-logo-sub{font-size:9px;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.sb-user{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:10px}
+.sb-user-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue2));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--white);flex-shrink:0}
+.sb-user-name{font-size:13px;color:var(--white);font-weight:500}
+.sb-user-role{font-size:11px;color:rgba(255,255,255,0.4)}
+.sb-nav{padding:12px 0;flex:1}
+.sb-section{padding:16px 20px 8px}
+.sb-section-label{font-size:10px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:1.5px;font-weight:600}
+.sb-item{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;transition:background .15s,color .15s;color:rgba(255,255,255,0.55);font-size:13.5px;font-weight:400;position:relative}
+.sb-item:hover{background:rgba(255,255,255,0.05);color:var(--white)}
+.sb-item.active{background:rgba(212,168,67,0.1);color:var(--gold)}
+.sb-item.active::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;background:var(--gold);border-radius:0 3px 3px 0}
+.sb-item i{font-size:18px;flex-shrink:0}
+.sb-item-badge{margin-left:auto;background:var(--blue);color:var(--white);font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px}
+
+/* MAIN CONTENT */
+.main-content{flex:1;overflow-y:auto;background:var(--light)}
+.topbar{background:var(--white);border-bottom:1px solid var(--slate2);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.topbar-title{font-size:18px;font-weight:600;color:var(--text)}
+.topbar-breadcrumb{font-size:12px;color:var(--muted);margin-top:1px}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.topbar-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--slate2);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:18px;transition:all .2s}
+.topbar-btn:hover{border-color:var(--blue);color:var(--blue)}
+.topbar-notif{position:relative}
+.notif-dot{position:absolute;top:6px;right:7px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid var(--white)}
+.page-content{padding:32px}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:28px}
+.stat-card{background:var(--white);border-radius:var(--radius);border:1px solid var(--slate2);padding:24px;position:relative;overflow:hidden}
+.stat-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
+.stat-card-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.stat-card-trend{font-size:12px;font-weight:600;padding:4px 8px;border-radius:6px}
+.trend-up{background:#E6F7EF;color:var(--green)}
+.trend-down{background:#FDEEEE;color:var(--red)}
+.stat-card-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--text);line-height:1}
+.stat-card-label{font-size:13px;color:var(--muted);margin-top:6px}
+.stat-card-line{position:absolute;bottom:0;left:0;right:0;height:3px}
+
+/* DATA TABLE */
+.card{background:var(--white);border-radius:var(--radius);border:1px solid var(--slate2);margin-bottom:24px}
+.card-header{padding:20px 24px;border-bottom:1px solid var(--slate2);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:15px;font-weight:600;color:var(--text)}
+.card-subtitle{font-size:12px;color:var(--muted);margin-top:2px}
+.card-actions{display:flex;gap:8px}
+.btn{padding:9px 18px;border-radius:8px;font-size:13px;font-weight:500;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s}
+.btn-primary{background:var(--blue);color:var(--white)}
+.btn-primary:hover{background:var(--blue2)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--slate2)}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn-gold{background:var(--gold);color:var(--navy)}
+.btn-gold:hover{background:var(--gold2)}
+.btn-danger{background:#FDEEEE;color:var(--red);border:1px solid #FBBCBC}
+.btn-danger:hover{background:#F7C1C1}
+.btn-success{background:#E6F7EF;color:var(--green)}
+.btn-sm{padding:6px 12px;font-size:12px}
+
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;font-weight:600;padding:12px 16px;background:var(--slate);border-bottom:1px solid var(--slate2);text-align:left}
+td{padding:13px 16px;font-size:13.5px;border-bottom:1px solid var(--slate);color:var(--text);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--light)}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-green{background:#E6F7EF;color:var(--green)}
+.badge-blue{background:#E8F1FC;color:var(--blue)}
+.badge-gold{background:#FEF7E0;color:#9A6F0A}
+.badge-red{background:#FDEEEE;color:var(--red)}
+.badge-gray{background:var(--slate);color:var(--muted)}
+.badge-orange{background:#FEF0E0;color:var(--orange)}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
+
+/* SEARCH & FILTER */
+.search-bar{display:flex;align-items:center;gap:10px;padding:16px 24px;border-bottom:1px solid var(--slate2)}
+.search-input{flex:1;padding:9px 14px 9px 36px;border:1px solid var(--slate2);border-radius:8px;font-size:13px;color:var(--text);background:var(--light);outline:none;font-family:inherit}
+.search-input:focus{border-color:var(--blue);background:var(--white)}
+.search-wrapper{position:relative;flex:1}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px;pointer-events:none}
+.filter-select{padding:9px 14px;border:1px solid var(--slate2);border-radius:8px;font-size:13px;color:var(--text);background:var(--white);outline:none;cursor:pointer;font-family:inherit}
+
+/* FORMS */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:24px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
+.form-input,.form-select,.form-textarea{padding:10px 14px;border:1px solid var(--slate2);border-radius:8px;font-size:14px;color:var(--text);background:var(--white);outline:none;font-family:inherit;transition:border-color .2s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue)}
+.form-textarea{resize:vertical;min-height:100px}
+.form-footer{padding:16px 24px;border-top:1px solid var(--slate2);display:flex;justify-content:flex-end;gap:10px}
+
+/* MAP PLACEHOLDER */
+.map-container{background:linear-gradient(135deg,#0d2137 0%,#0a3a5c 50%,#0d2137 100%);border-radius:var(--radius);height:340px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(30,111,217,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(30,111,217,0.08) 1px,transparent 1px);background-size:40px 40px}
+.map-markers{position:absolute;inset:0}
+.map-marker{position:absolute;transform:translate(-50%,-50%);cursor:pointer}
+.map-dot{width:12px;height:12px;background:var(--gold);border-radius:50%;border:2px solid var(--white);box-shadow:0 0 0 4px rgba(212,168,67,0.25);transition:transform .2s}
+.map-dot:hover{transform:scale(1.4)}
+.map-marker-label{font-size:11px;font-weight:600;color:var(--white);background:rgba(10,22,40,0.8);padding:3px 7px;border-radius:4px;white-space:nowrap;margin-top:4px;text-align:center}
+.map-legend{position:absolute;bottom:16px;right:16px;background:rgba(10,22,40,0.8);border-radius:8px;padding:12px 16px;border:1px solid rgba(255,255,255,0.1)}
+.map-legend-title{font-size:10px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.map-legend-item{display:flex;align-items:center;gap:8px;font-size:11px;color:rgba(255,255,255,0.7);margin-bottom:4px}
+.map-legend-dot{width:8px;height:8px;border-radius:50%}
+
+/* CHARTS */
+.chart-bar{display:flex;align-items:flex-end;gap:8px;padding:24px;height:220px}
+.bar-group{display:flex;flex-direction:column;align-items:center;flex:1;gap:8px}
+.bar-wrap{width:100%;display:flex;align-items:flex-end;justify-content:center;gap:3px;flex:1}
+.bar{border-radius:4px 4px 0 0;transition:opacity .2s;cursor:pointer}
+.bar:hover{opacity:0.8}
+.bar-label{font-size:10px;color:var(--muted);text-align:center;word-break:break-all}
+.chart-donut{display:flex;align-items:center;justify-content:center;gap:32px;padding:24px}
+.donut-legend{display:flex;flex-direction:column;gap:12px}
+.donut-item{display:flex;align-items:center;gap:10px}
+.donut-color{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.donut-name{font-size:13px;color:var(--text)}
+.donut-val{font-size:13px;font-weight:600;color:var(--text);margin-left:auto}
+canvas{max-width:100%}
+
+/* CALENDAR */
+.calendar{padding:20px 24px}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.cal-month{font-size:16px;font-weight:600;color:var(--text)}
+.cal-nav{width:32px;height:32px;border-radius:6px;border:1px solid var(--slate2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);background:var(--white);font-size:16px}
+.cal-nav:hover{border-color:var(--blue);color:var(--blue)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-day-header{text-align:center;font-size:11px;font-weight:600;color:var(--muted);padding:6px 0;text-transform:uppercase;letter-spacing:0.5px}
+.cal-day{min-height:60px;border-radius:8px;padding:6px;border:1px solid transparent;cursor:pointer;transition:all .15s}
+.cal-day:hover{background:var(--slate);border-color:var(--slate2)}
+.cal-day.other-month{opacity:0.3}
+.cal-day-num{font-size:13px;font-weight:500;color:var(--text)}
+.cal-day.today .cal-day-num{background:var(--blue);color:var(--white);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.cal-event{font-size:10px;background:var(--blue);color:var(--white);border-radius:3px;padding:2px 5px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cal-event.gold{background:var(--gold);color:var(--navy)}
+.cal-event.green{background:var(--green);color:var(--white)}
+
+/* GALLERY */
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:24px}
+.gallery-item{border-radius:8px;overflow:hidden;aspect-ratio:4/3;background:var(--slate);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;border:1px solid var(--slate2)}
+.gallery-placeholder{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--muted)}
+.gallery-placeholder i{font-size:28px}
+.gallery-overlay{position:absolute;inset:0;background:rgba(10,22,40,0.6);opacity:0;transition:opacity .2s;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:24px}
+.gallery-item:hover .gallery-overlay{opacity:1}
+
+/* PROGRESS */
+.progress-bar{height:6px;background:var(--slate2);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;background:var(--blue);transition:width .6s ease}
+.progress-fill.gold{background:var(--gold)}
+.progress-fill.green{background:var(--green)}
+
+/* AVATAR */
+.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+
+/* ACTIVITY FEED */
+.activity-list{padding:16px 24px}
+.activity-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--slate)}
+.activity-item:last-child{border-bottom:none}
+.activity-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.activity-body{flex:1}
+.activity-text{font-size:13px;color:var(--text)}
+.activity-text strong{font-weight:600}
+.activity-time{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* PROFILE CARDS */
+.profile-card{background:var(--white);border-radius:var(--radius);border:1px solid var(--slate2);padding:20px;display:flex;align-items:flex-start;gap:16px}
+.profile-info{flex:1}
+.profile-name{font-size:15px;font-weight:600;color:var(--text)}
+.profile-role{font-size:12px;color:var(--muted);margin-top:2px}
+.profile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+.profile-detail{font-size:12px;color:var(--muted)}
+.profile-detail span{display:block;color:var(--text);font-size:13px;font-weight:500;margin-top:1px}
+
+/* TABS */
+.tabs{display:flex;gap:4px;padding:16px 24px 0;border-bottom:1px solid var(--slate2)}
+.tab{padding:10px 18px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;margin-bottom:-1px}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue);font-weight:600}
+
+/* NOTIFICATION TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:var(--white);padding:14px 20px;border-radius:10px;font-size:13px;display:flex;align-items:center;gap:10px;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;pointer-events:none;max-width:320px;border-left:3px solid var(--gold)}
+.toast.show{transform:translateY(0);opacity:1}
+.toast i{font-size:18px;color:var(--gold)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border-radius:16px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--slate2);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-size:16px;font-weight:600;color:var(--text)}
+.modal-close{width:32px;height:32px;border-radius:6px;border:none;background:var(--slate);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--muted)}
+.modal-close:hover{background:var(--slate2)}
+
+/* EMPTY STATE */
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:64px 24px;text-align:center}
+.empty-icon{width:64px;height:64px;background:var(--slate);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--muted);margin-bottom:20px}
+.empty-title{font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px}
+.empty-sub{font-size:13px;color:var(--muted);max-width:280px;line-height:1.6}
+
+/* SECTION HEADER */
+.page-header{margin-bottom:28px}
+.page-title-main{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:4px}
+.page-subtitle{font-size:14px;color:var(--muted)}
+
+/* GRID LAYOUTS */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+.main-side{display:grid;grid-template-columns:1fr 320px;gap:24px}
+
+/* KOMODITAS CARD */
+.komoditas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:24px}
+.komoditas-card{border:1px solid var(--slate2);border-radius:10px;padding:16px;transition:border-color .2s;cursor:pointer}
+.komoditas-card:hover{border-color:var(--blue)}
+.komoditas-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px}
+.komoditas-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.komoditas-desa{font-size:12px;color:var(--muted)}
+.komoditas-meta{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+
+/* PRODUCT CATALOG */
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:24px}
+.product-card{border:1px solid var(--slate2);border-radius:12px;overflow:hidden;transition:box-shadow .2s,border-color .2s;cursor:pointer}
+.product-card:hover{border-color:var(--blue)}
+.product-img{height:140px;background:linear-gradient(135deg,var(--slate) 0%,var(--slate2) 100%);display:flex;align-items:center;justify-content:center;font-size:40px}
+.product-body{padding:14px}
+.product-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.product-desa{font-size:11px;color:var(--muted)}
+.product-price{font-size:16px;font-weight:700;color:var(--blue);margin-top:8px}
+.product-price-label{font-size:11px;color:var(--muted);font-weight:400}
+.product-footer{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+
+/* ASET */
+.aset-timeline{padding:20px 24px}
+.aset-item{display:flex;gap:16px;margin-bottom:24px;position:relative}
+.aset-item::before{content:'';position:absolute;left:19px;top:40px;bottom:-24px;width:2px;background:var(--slate2)}
+.aset-item:last-child::before{display:none}
+.aset-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;border:2px solid var(--white);position:relative;z-index:1}
+.aset-content{flex:1;background:var(--white);border:1px solid var(--slate2);border-radius:10px;padding:14px}
+.aset-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.aset-meta{font-size:12px;color:var(--muted)}
+.aset-details{display:flex;gap:16px;margin-top:10px}
+.aset-detail{font-size:12px;color:var(--muted)}
+.aset-detail span{font-weight:600;color:var(--text)}
+
+/* ROLE CARDS */
+.role-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:24px}
+.role-card{border:1px solid var(--slate2);border-radius:10px;padding:20px}
+.role-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.role-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.role-name{font-size:15px;font-weight:600;color:var(--text)}
+.role-count{font-size:12px;color:var(--muted)}
+.permission-list{display:flex;flex-direction:column;gap:8px}
+.permission-item{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--text)}
+.toggle{width:36px;height:20px;border-radius:10px;position:relative;cursor:pointer;transition:background .2s}
+.toggle.on{background:var(--blue)}
+.toggle.off{background:var(--slate2)}
+.toggle::after{content:'';position:absolute;top:2px;width:16px;height:16px;border-radius:50%;background:var(--white);transition:left .2s}
+.toggle.on::after{left:18px}
+.toggle.off::after{left:2px}
+
+/* LOG TABLE */
+.log-entry{display:flex;align-items:flex-start;gap:12px;padding:12px 24px;border-bottom:1px solid var(--slate)}
+.log-entry:last-child{border-bottom:none}
+.log-type{width:60px;flex-shrink:0}
+.log-msg{font-size:13px;color:var(--text)}
+.log-user{font-size:12px;color:var(--muted);margin-top:2px}
+.log-time{font-size:11px;color:var(--muted);flex-shrink:0;margin-left:auto}
+
+/* STATUS DOTS */
+.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
+.dot-green{background:var(--green)}
+.dot-red{background:var(--red)}
+.dot-gold{background:var(--gold)}
+.dot-gray{background:var(--muted)}
+
+/* MOBILE HIDE */
+@media(max-width:768px){.sidebar{display:none}.stat-grid{grid-template-columns:1fr 1fr}.land-cards{grid-template-columns:1fr}.land-stats{grid-template-columns:1fr 1fr}.komoditas-grid,.product-grid{grid-template-columns:1fr}.gallery-grid{grid-template-columns:1fr 1fr}}
+
+/* ANIMATE */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.page-content>*{animation:fadeUp .3s ease both}
+.page-content>*:nth-child(1){animation-delay:.05s}
+.page-content>*:nth-child(2){animation-delay:.1s}
+.page-content>*:nth-child(3){animation-delay:.15s}
+.page-content>*:nth-child(4){animation-delay:.2s}
+
+/* COUNTER ANIMATION */
+@keyframes countUp{from{opacity:0}to{opacity:1}}
 </style>
 </head>
 <body>
 
-<!-- ══ NAVIGATION ══ -->
-<nav id="mainNav">
-  <div class="nav-inner">
-    <a href="#home" class="nav-logo">
-      <div class="nav-logo-icon">🌿</div>
-      <div class="nav-logo-text">
-        <div class="desa">Desa Sumber Suko Jaya</div>
-        <div class="tagline">Portal Resmi Pemerintahan Desa</div>
-      </div>
-    </a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#home">Beranda</a></li>
-      <li><a href="#berita">Berita</a></li>
-      <li><a href="#monografi">Monografi</a></li>
-      <li><a href="#tentang">Tentang Desa</a></li>
-      <li><a href="#lapak" class="nav-cta">🛍 Lapak Kampung</a></li>
-    </ul>
-    <div class="hamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </div>
-  </div>
-</nav>
-
-<!-- ══ HERO ══ -->
-<section id="home">
-  <div class="hero-pattern"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-eyebrow">
-        <span class="dot"></span>
-        Desa Digital Terpadu
-      </div>
-      <h1 class="hero-title">
-        Selamat Datang di<br>
-        <em>Desa Sumber Suko </em><br>
-        Jaya
-      </h1>
-      <p class="hero-desc">
-        Portal resmi informasi desa yang menyajikan data kependudukan, berita kegiatan, potensi produk lokal, dan layanan publik secara transparan, modern, dan mudah diakses.
-      </p>
-      <div class="hero-actions">
-        <a href="#tentang" class="btn-primary">✦ Profil Desa</a>
-        <a href="#lapak" class="btn-outline">🛍 Lapak Kampung</a>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat"><span class="num" data-target="4782">0</span><span class="lbl">Jiwa</span></div>
-        <div class="hero-stat"><span class="num" data-target="1241">0</span><span class="lbl">KK</span></div>
-        <div class="hero-stat"><span class="num" data-target="12">0</span><span class="lbl">Dusun</span></div>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="hero-eyebrow" style="margin-bottom:1rem;">📰 Berita Terkini</div>
-      <div class="banner-card featured" onclick="openNewsModal('Pembangunan Jalan Desa Tahap III Dimulai', 'Proyek pembangunan jalan desa tahap ketiga resmi dimulai dengan total anggaran Rp 2,4 miliar dari Dana Desa. Pembangunan mencakup 4,2 km jalan dan ditargetkan selesai dalam 90 hari kerja.', '🏗️', '#e8f5e9')">
-        <div class="banner-thumb">🏗️</div>
-        <div class="banner-info">
-          <div class="tag">📌 Sorotan Utama</div>
-          <h3>Pembangunan Jalan Desa Tahap III Dimulai</h3>
-          <p>Proyek senilai Rp 2,4 miliar segera dikerjakan</p>
-          <div class="banner-date">13 Jun 2025</div>
-        </div>
-      </div>
-      <div class="banner-card" onclick="openNewsModal('Posyandu Bulan Juni Siap Melayani', 'Posyandu desa siap memberikan pelayanan kesehatan ibu dan anak pada bulan Juni. Seluruh fasilitas dan tenaga kesehatan telah disiapkan.', '🏥', '#e3f2fd')">
-        <div class="banner-thumb">🏥</div>
-        <div class="banner-info">
-          <div class="tag">Kesehatan</div>
-          <h3>Posyandu Bulan Juni Siap Melayani</h3>
-          <p>Layanan kesehatan ibu dan anak tersedia</p>
-          <div class="banner-date">11 Jun 2025</div>
-        </div>
-      </div>
-      <div class="banner-card" onclick="openNewsModal('Panen Raya Padi di Dusun Wonosari', 'Dusun Wonosari kembali mencatat hasil panen raya padi yang memuaskan. Total 68 ton gabah berhasil dipanen dari lahan seluas 34 hektar.', '🌾', '#fff3e0')">
-        <div class="banner-thumb">🌾</div>
-        <div class="banner-info">
-          <div class="tag">Pertanian</div>
-          <h3>Panen Raya Padi di Dusun Wonosari</h3>
-          <p>68 ton gabah berhasil dipanen petani desa</p>
-          <div class="banner-date">08 Jun 2025</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="batik-divider"></div>
-
-<!-- ══ BERITA ══ -->
-<section id="berita" class="section">
-  <div class="section-inner">
-    <div class="section-eyebrow">Informasi & Publikasi</div>
-    <h2 class="section-title">Berita & Pengumuman Desa</h2>
-    <p class="section-desc">Temukan informasi terkini seputar kegiatan, pembangunan, dan pengumuman resmi Desa Sumber Suko Jaya.</p>
-
-    <!-- Search -->
-    <div class="search-bar fade-up">
-      <span>🔍</span>
-      <input type="text" id="searchInput" placeholder="Cari berita, pengumuman, kegiatan..." oninput="filterNews()">
-      <select id="catFilter" onchange="filterNews()">
-        <option value="">Semua Kategori</option>
-        <option value="Pembangunan">Pembangunan</option>
-        <option value="Kesehatan">Kesehatan</option>
-        <option value="Pertanian">Pertanian</option>
-        <option value="Pendidikan">Pendidikan</option>
-        <option value="Pengumuman">Pengumuman</option>
-      </select>
-      <button class="btn-search" onclick="filterNews()">Cari</button>
-    </div>
-
-    <!-- Featured -->
-    <div class="news-featured fade-up">
-      <div class="news-big" onclick="openNewsModal('Pembangunan Jalan Desa Tahap III', 'Pemerintah desa resmi memulai pembangunan jalan desa tahap ketiga yang menghubungkan Dusun Wonosari dengan Dusun Wonorejo. Proyek senilai Rp 2,4 miliar ini dibiayai Dana Desa 2025 dan ditargetkan selesai dalam 90 hari kerja. Pembangunan mencakup pengaspalan jalan sepanjang 4,2 km, pembuatan drainase, dan penambahan lampu jalan. Kepala Desa menyampaikan bahwa proyek ini akan meningkatkan aksesibilitas dan mendorong pertumbuhan ekonomi masyarakat.', '🏗️', '#e8f5e9')">
-        <div class="news-big-img" style="background: linear-gradient(135deg, #1a3a2a, #3d7a56);">
-          <span style="font-size:5rem;z-index:1;position:relative">🏗️</span>
-        </div>
-        <div class="news-big-content">
-          <span class="news-badge badge-green">Pembangunan</span>
-          <h3 style="font-size:1.15rem;font-weight:700;margin-bottom:0.5rem;color:var(--forest)">Pembangunan Jalan Desa Tahap III Resmi Dimulai</h3>
-          <p style="font-size:0.85rem;color:var(--slate);line-height:1.6">Proyek senilai Rp 2,4 miliar dari Dana Desa 2025 mencakup pengaspalan 4,2 km jalan dan pembuatan drainase.</p>
-          <div class="news-meta" style="margin-top:0.75rem">📅 13 Juni 2025 · 👁 1.247 views</div>
-        </div>
-      </div>
-      <div class="news-small-list">
-        <div class="news-small" onclick="openNewsModal('Posyandu Bulan Juni', 'Posyandu Desa Sumber Suko Jaya kembali membuka layanan rutin bulan Juni. Warga diimbau membawa buku KIA dan datang tepat waktu sesuai jadwal masing-masing dusun.', '🏥', '#e3f2fd')">
-          <div class="news-small-thumb">🏥</div>
-          <div class="news-small-info">
-            <span class="news-badge badge-blue" style="margin-bottom:4px">Kesehatan</span>
-            <h3>Posyandu Bulan Juni Siap Melayani Warga</h3>
-            <p>Layanan kesehatan ibu dan anak rutin bulan ini</p>
-            <div class="news-meta">📅 11 Jun 2025</div>
-          </div>
-        </div>
-        <div class="news-small" onclick="openNewsModal('Panen Raya Dusun Wonosari', 'Dusun Wonosari kembali berhasil mencatat hasil panen raya yang memuaskan. Sebanyak 68 ton gabah berhasil dipanen dari 34 hektar sawah milik 127 kepala keluarga petani.', '🌾', '#fff3e0')">
-          <div class="news-small-thumb">🌾</div>
-          <div class="news-small-info">
-            <span class="news-badge badge-orange" style="margin-bottom:4px">Pertanian</span>
-            <h3>Panen Raya Padi di Dusun Wonosari Catat Rekor</h3>
-            <p>68 ton gabah dipanen dari 34 hektar sawah</p>
-            <div class="news-meta">📅 08 Jun 2025</div>
-          </div>
-        </div>
-        <div class="news-small" onclick="openNewsModal('Beasiswa Siswa Berprestasi', 'Desa Sumber Suko Jaya kembali membuka program beasiswa bagi siswa berprestasi dari keluarga kurang mampu. Kuota tersedia untuk 15 siswa SD, 10 siswa SMP, dan 5 siswa SMA.', '🎓', '#f3e5f5')">
-          <div class="news-small-thumb">🎓</div>
-          <div class="news-small-info">
-            <span class="news-badge badge-purple" style="margin-bottom:4px">Pendidikan</span>
-            <h3>Pendaftaran Beasiswa Siswa Berprestasi Dibuka</h3>
-            <p>30 kuota beasiswa untuk warga desa tersedia</p>
-            <div class="news-meta">📅 05 Jun 2025</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Category tabs -->
-    <div class="category-tabs fade-up">
-      <button class="cat-tab active" onclick="setActiveTab(this,'')">Semua</button>
-      <button class="cat-tab" onclick="setActiveTab(this,'Pembangunan')">🏗 Pembangunan</button>
-      <button class="cat-tab" onclick="setActiveTab(this,'Kesehatan')">🏥 Kesehatan</button>
-      <button class="cat-tab" onclick="setActiveTab(this,'Pertanian')">🌾 Pertanian</button>
-      <button class="cat-tab" onclick="setActiveTab(this,'Pendidikan')">🎓 Pendidikan</button>
-      <button class="cat-tab" onclick="setActiveTab(this,'Pengumuman')">📢 Pengumuman</button>
-    </div>
-
-    <!-- News grid -->
-    <div class="news-grid" id="newsGrid">
-      <!-- Cards generated by JS -->
-    </div>
-  </div>
-</section>
-
-<div class="batik-divider"></div>
-
-<!-- ══ MONOGRAFI ══ -->
-<section id="monografi" class="section">
-  <div class="section-inner">
-    <div class="section-eyebrow">Data & Statistik</div>
-    <h2 class="section-title">Monografi Desa</h2>
-    <p class="section-desc">Data kependudukan, sosial ekonomi, dan sarana prasarana Desa  Sumber Suko Jaya secara lengkap dan transparan.</p>
-
-    <div class="mono-tabs fade-up">
-      <button class="mono-tab active" onclick="switchMono(this,'kependudukan')">👥 Kependudukan</button>
-      <button class="mono-tab" onclick="switchMono(this,'sosialekonomi')">💼 Sosial Ekonomi</button>
-      <button class="mono-tab" onclick="switchMono(this,'saranaprasarana')">🏛 Sarana Prasarana</button>
-    </div>
-
-    <!-- Kependudukan -->
-    <div class="mono-panel active" id="panel-kependudukan">
-      <div class="stat-grid fade-up">
-        <div class="stat-card"><div class="icon">👥</div><span class="number">4.782</span><div class="label">Total Penduduk</div></div>
-        <div class="stat-card"><div class="icon">🏠</div><span class="number">1.241</span><div class="label">Kepala Keluarga</div></div>
-        <div class="stat-card"><div class="icon">👨</div><span class="number">2.398</span><div class="label">Laki-laki</div></div>
-        <div class="stat-card"><div class="icon">👩</div><span class="number">2.384</span><div class="label">Perempuan</div></div>
-      </div>
-      <div class="chart-row fade-up">
-        <div class="chart-card">
-          <h3>📊 Distribusi Berdasarkan Usia</h3>
-          <div class="bar-chart">
-            <div class="bar-item"><span class="bar-label">0–14 th</span><div class="bar-track"><div class="bar-fill green" style="width:28%"></div></div><span class="bar-value">1.339</span></div>
-            <div class="bar-item"><span class="bar-label">15–29 th</span><div class="bar-track"><div class="bar-fill green" style="width:24%"></div></div><span class="bar-value">1.148</span></div>
-            <div class="bar-item"><span class="bar-label">30–44 th</span><div class="bar-track"><div class="bar-fill gold" style="width:22%"></div></div><span class="bar-value">1.052</span></div>
-            <div class="bar-item"><span class="bar-label">45–59 th</span><div class="bar-track"><div class="bar-fill gold" style="width:16%"></div></div><span class="bar-value">765</span></div>
-            <div class="bar-item"><span class="bar-label">60+ th</span><div class="bar-track"><div class="bar-fill green" style="width:10%"></div></div><span class="bar-value">478</span></div>
-          </div>
-        </div>
-        <div class="chart-card">
-          <h3>🕌 Distribusi Berdasarkan Agama</h3>
-          <div class="donut-wrap">
-            <svg class="donut-svg" width="140" height="140" viewBox="0 0 140 140">
-              <circle cx="70" cy="70" r="52" fill="none" stroke="#e8f5e9" stroke-width="22"/>
-              <circle cx="70" cy="70" r="52" fill="none" stroke="#1a3a2a" stroke-width="22" stroke-dasharray="294 33" stroke-dashoffset="0" transform="rotate(-90 70 70)"/>
-              <circle cx="70" cy="70" r="52" fill="none" stroke="#c8972a" stroke-width="22" stroke-dasharray="18 309" stroke-dashoffset="-294" transform="rotate(-90 70 70)"/>
-              <circle cx="70" cy="70" r="52" fill="none" stroke="#3d7a56" stroke-width="22" stroke-dasharray="8 319" stroke-dashoffset="-312" transform="rotate(-90 70 70)"/>
-              <text x="70" y="66" text-anchor="middle" font-size="13" font-weight="700" fill="#1a3a2a">91%</text>
-              <text x="70" y="80" text-anchor="middle" font-size="9" fill="#8a9ba8">Islam</text>
-            </svg>
-            <div class="donut-legend">
-              <div class="legend-item"><div class="legend-dot" style="background:#1a3a2a"></div><span>Islam — 4.352 (91%)</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:#c8972a"></div><span>Kristen — 263 (5.5%)</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:#3d7a56"></div><span>Lainnya — 167 (3.5%)</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sosial Ekonomi -->
-    <div class="mono-panel" id="panel-sosialekonomi">
-      <div class="chart-row fade-up">
-        <div class="chart-card">
-          <h3>💼 Distribusi Pekerjaan</h3>
-          <div class="bar-chart">
-            <div class="bar-item"><span class="bar-label">Petani</span><div class="bar-track"><div class="bar-fill green" style="width:42%"></div></div><span class="bar-value">847</span></div>
-            <div class="bar-item"><span class="bar-label">Wiraswasta</span><div class="bar-track"><div class="bar-fill gold" style="width:21%"></div></div><span class="bar-value">423</span></div>
-            <div class="bar-item"><span class="bar-label">PNS/TNI</span><div class="bar-track"><div class="bar-fill green" style="width:10%"></div></div><span class="bar-value">198</span></div>
-            <div class="bar-item"><span class="bar-label">Buruh</span><div class="bar-track"><div class="bar-fill gold" style="width:18%"></div></div><span class="bar-value">356</span></div>
-            <div class="bar-item"><span class="bar-label">Lainnya</span><div class="bar-track"><div class="bar-fill green" style="width:9%"></div></div><span class="bar-value">181</span></div>
-          </div>
-        </div>
-        <div class="chart-card">
-          <h3>📚 Tingkat Pendidikan</h3>
-          <div class="bar-chart">
-            <div class="bar-item"><span class="bar-label">SD/Sederajat</span><div class="bar-track"><div class="bar-fill green" style="width:35%"></div></div><span class="bar-value">1.152</span></div>
-            <div class="bar-item"><span class="bar-label">SMP</span><div class="bar-track"><div class="bar-fill gold" style="width:28%"></div></div><span class="bar-value">921</span></div>
-            <div class="bar-item"><span class="bar-label">SMA/SMK</span><div class="bar-track"><div class="bar-fill green" style="width:25%"></div></div><span class="bar-value">823</span></div>
-            <div class="bar-item"><span class="bar-label">D3/S1</span><div class="bar-track"><div class="bar-fill gold" style="width:10%"></div></div><span class="bar-value">329</span></div>
-            <div class="bar-item"><span class="bar-label">S2/S3</span><div class="bar-track"><div class="bar-fill green" style="width:2%"></div></div><span class="bar-value">48</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="chart-row fade-up" style="margin-top:1.5rem">
-        <div class="chart-card">
-          <h3>🏘 Persebaran Penduduk per Dusun</h3>
-          <div class="bar-chart">
-            <div class="bar-item"><span class="bar-label">Dusun Wonosari</span><div class="bar-track"><div class="bar-fill green" style="width:32%"></div></div><span class="bar-value">1.530</span></div>
-            <div class="bar-item"><span class="bar-label">Dusun Wonorejo</span><div class="bar-track"><div class="bar-fill gold" style="width:26%"></div></div><span class="bar-value">1.243</span></div>
-            <div class="bar-item"><span class="bar-label">Dusun Sidorejo</span><div class="bar-track"><div class="bar-fill green" style="width:24%"></div></div><span class="bar-value">1.148</span></div>
-            <div class="bar-item"><span class="bar-label">Dusun Lainnya</span><div class="bar-track"><div class="bar-fill gold" style="width:18%"></div></div><span class="bar-value">861</span></div>
-          </div>
-        </div>
-        <div class="chart-card">
-          <h3>🏥 Tenaga Kesehatan</h3>
-          <div class="bar-chart">
-            <div class="bar-item"><span class="bar-label">Bidan</span><div class="bar-track"><div class="bar-fill green" style="width:50%"></div></div><span class="bar-value">5</span></div>
-            <div class="bar-item"><span class="bar-label">Perawat</span><div class="bar-track"><div class="bar-fill gold" style="width:30%"></div></div><span class="bar-value">3</span></div>
-            <div class="bar-item"><span class="bar-label">Dokter</span><div class="bar-track"><div class="bar-fill green" style="width:20%"></div></div><span class="bar-value">2</span></div>
-            <div class="bar-item"><span class="bar-label">Kader</span><div class="bar-track"><div class="bar-fill gold" style="width:100%"></div></div><span class="bar-value">24</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sarana Prasarana -->
-    <div class="mono-panel" id="panel-saranaprasarana">
-      <div class="stat-grid fade-up">
-        <div class="stat-card"><div class="icon">📐</div><span class="number">842</span><div class="label">Luas Wilayah (Ha)</div></div>
-        <div class="stat-card"><div class="icon">🏫</div><span class="number">8</span><div class="label">Sarana Pendidikan</div></div>
-        <div class="stat-card"><div class="icon">🏥</div><span class="number">5</span><div class="label">Fasilitas Kesehatan</div></div>
-        <div class="stat-card"><div class="icon">🕌</div><span class="number">14</span><div class="label">Tempat Ibadah</div></div>
-      </div>
-      <div class="chart-row fade-up">
-        <div class="chart-card">
-          <h3>🏫 Sarana Pendidikan</h3>
-          <div class="bar-chart">
-            <div class="bar-item"><span class="bar-label">PAUD/TK</span><div class="bar-track"><div class="bar-fill green" style="width:37.5%"></div></div><span class="bar-value">3 unit</span></div>
-            <div class="bar-item"><span class="bar-label">SD/MI</span><div class="bar-track"><div class="bar-fill gold" style="width:37.5%"></div></div><span class="bar-value">3 unit</span></div>
-            <div class="bar-item"><span class="bar-label">SMP</span><div class="bar-track"><div class="bar-fill green" style="width:25%"></div></div><span class="bar-value">2 unit</span></div>
-          </div>
-        </div>
-        <div class="chart-card">
-          <h3>🏛 Prasarana Umum Desa</h3>
-          <div class="bar-chart">
-            <div class="bar-item"><span class="bar-label">Kantor Desa</span><div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div><span class="bar-value">1 unit</span></div>
-            <div class="bar-item"><span class="bar-label">Balai Dusun</span><div class="bar-track"><div class="bar-fill gold" style="width:120%"></div></div><span class="bar-value">12 unit</span></div>
-            <div class="bar-item"><span class="bar-label">Jalan Desa</span><div class="bar-track"><div class="bar-fill green" style="width:80%"></div></div><span class="bar-value">24 km</span></div>
-            <div class="bar-item"><span class="bar-label">Lapangan</span><div class="bar-track"><div class="bar-fill gold" style="width:40%"></div></div><span class="bar-value">4 unit</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="batik-divider"></div>
-
-<!-- ══ TENTANG DESA ══ -->
-<section id="tentang" class="section">
-  <div class="section-inner">
-    <div class="section-eyebrow" style="color:var(--gold-lt)">Profil & Identitas</div>
-    <h2 class="section-title">Tentang Desa Sumber Suko jaya</h2>
-    <p class="section-desc">Mengenal lebih dekat sejarah, geografi, pemerintahan, dan kegiatan desa yang terus berkembang untuk mewujudkan masyarakat sejahtera.</p>
-
-    <div class="about-grid">
-      <!-- Kiri: Sejarah + Geo + Org + Saran -->
+<!-- ==================== LANDING PAGE ==================== -->
+<div id="landing">
+  <nav class="land-nav">
+    <div class="land-logo">
+      <div class="land-logo-icon"><i class="ti ti-map-2"></i></div>
       <div>
-        <div class="info-card fade-up">
-          <h3>📜 Sejarah Desa</h3>
-          <p>Desa Sumber Suko Jaya didirikan pada tahun 1928 oleh sekelompok transmigran dari berbagai daerah yang membuka lahan pertanian di tepi sungai. Nama "Sumber Suko Jaya" mencerminkan keberagaman dan keindahan alam yang menjadi warisan leluhur. Desa ini telah melewati berbagai fase perkembangan mulai dari era kolonial, kemerdekaan, hingga era digitalisasi desa saat ini, selalu mempertahankan nilai-nilai gotong royong dan kekeluargaan.</p>
-        </div>
-        <div class="info-card fade-up">
-          <h3>🗺 Informasi Geografis</h3>
-          <ul class="geo-list">
-            <li><span>Kecamatan</span><span>Belitang</span></li>
-            <li><span>Kabupaten</span><span>Oku Timur</span></li>
-            <li><span>Provinsi</span><span>Sumatera Selatan</span></li>
-            <li><span>Luas Wilayah</span><span>842 Ha</span></li>
-            <li><span>Batas Utara</span><span>Desa Sumber Suko</span></li>
-            <li><span>Batas Selatan</span><span>Desa Sukosari </span></li>
-            <li><span>Ketinggian</span><span>320–480 mdpl</span></li>
-            <li><span>Iklim</span><span>Tropis Basah</span></li>
-          </ul>
-        </div>
-        <div class="info-card fade-up">
-          <h3>🎯 Visi & Misi</h3>
-          <p style="margin-bottom:0.75rem"><strong style="color:var(--gold-lt)">Visi:</strong> Mewujudkan Desa Sumber suko Jaya yang Maju, Mandiri, Sejahtera, dan Berkelanjutan.</p>
-          <p><strong style="color:var(--gold-lt)">Misi:</strong> Meningkatkan kualitas pelayanan publik, mengembangkan potensi ekonomi lokal, memperkuat infrastruktur desa, dan mendorong partisipasi aktif seluruh lapisan masyarakat dalam pembangunan desa.</p>
-        </div>
+        <div class="land-logo-text">SIPADES</div>
+        <div class="land-logo-sub">Sistem Informasi Desa</div>
+      </div>
+    </div>
+    <div class="land-nav-links">
+      <a href="#fitur">Fitur</a>
+      <a href="#modul">Modul</a>
+      <a href="#tentang">Tentang</a>
+      <a href="#" onclick="enterApp()" class="land-btn-primary">Masuk Dashboard</a>
+    </div>
+  </nav>
 
-        <!-- Saran Form -->
-        <div class="saran-form fade-up">
-          <h3>💬 Kirim Saran & Masukan</h3>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Nama Lengkap</label>
-              <input type="text" placeholder="Masukkan nama Anda">
-            </div>
-            <div class="form-group">
-              <label>No. Telepon</label>
-              <input type="tel" placeholder="08xx-xxxx-xxxx">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Kategori Saran</label>
-              <select>
-                <option>Pelayanan Publik</option>
-                <option>Infrastruktur</option>
-                <option>Kesehatan</option>
-                <option>Pendidikan</option>
-                <option>Lainnya</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Dusun Asal</label>
-              <select>
-                <option>Dusun Wonosari</option>
-                <option>Dusun Wonorejo</option>
-                <option>Dusun Sidorejo</option>
-                <option>Lainnya</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group" style="margin-bottom:1.25rem">
-            <label>Isi Saran / Masukan</label>
-            <textarea placeholder="Tuliskan saran, kritik, atau aspirasi Anda untuk kemajuan desa..."></textarea>
-          </div>
-          <button class="btn-primary" onclick="submitSaran()" style="width:100%;justify-content:center">
-            📨 Kirim Saran
-          </button>
+  <div class="land-hero">
+    <div class="land-hero-badge">
+      <i class="ti ti-certificate" style="font-size:14px"></i>
+      Platform Resmi Pemerintahan Desa
+    </div>
+    <h1>Kelola Seluruh Desa<br>dalam <span>Satu Dashboard</span></h1>
+    <p>Platform terintegrasi untuk pemerintah kecamatan dalam memantau, mengelola, dan menganalisis data seluruh desa secara real-time dan efisien.</p>
+    <div class="land-hero-btns">
+      <button class="btn-land-main" onclick="enterApp()">
+        <i class="ti ti-layout-dashboard" style="vertical-align:-2px;margin-right:6px"></i>
+        Buka Dashboard
+      </button>
+      <button class="btn-land-outline">
+        <i class="ti ti-player-play" style="vertical-align:-2px;margin-right:6px"></i>
+        Lihat Demo
+      </button>
+    </div>
+  </div>
+
+  <div class="land-stats">
+    <div class="land-stat">
+      <div class="land-stat-num" id="cnt1">0</div>
+      <div class="land-stat-lbl">Desa Terintegrasi</div>
+    </div>
+    <div class="land-stat">
+      <div class="land-stat-num" id="cnt2">0</div>
+      <div class="land-stat-lbl">Total Penduduk</div>
+    </div>
+    <div class="land-stat">
+      <div class="land-stat-num" id="cnt3">0</div>
+      <div class="land-stat-lbl">Komoditas Terdaftar</div>
+    </div>
+    <div class="land-stat">
+      <div class="land-stat-num" id="cnt4">0</div>
+      <div class="land-stat-lbl">Produk Lapak Aktif</div>
+    </div>
+  </div>
+
+  <div class="land-features" id="fitur">
+    <div class="land-section-eyebrow">Mengapa SIPADES</div>
+    <div class="land-section-title">Dirancang untuk Pemerintahan<br>yang Lebih Transparan</div>
+    <div class="land-section-sub">Semua modul yang dibutuhkan kecamatan tersedia dalam satu platform yang mudah digunakan.</div>
+
+    <div class="land-cards" id="modul">
+      <div class="land-card" onclick="enterApp('dashboard')">
+        <div class="land-card-num">Modul 01</div>
+        <div class="land-card-icon blue"><i class="ti ti-layout-dashboard"></i></div>
+        <h3>Dashboard Kecamatan</h3>
+        <p>Statistik ringkasan, peta desa, status kelengkapan data, dan rekap aktivitas seluruh desa dalam satu halaman.</p>
+      </div>
+      <div class="land-card" onclick="enterApp('desa')">
+        <div class="land-card-num">Modul 02</div>
+        <div class="land-card-icon gold"><i class="ti ti-home-2"></i></div>
+        <h3>Data Desa</h3>
+        <p>Master data desa lengkap dengan profil, status web desa, dan catatan dari pihak kecamatan.</p>
+      </div>
+      <div class="land-card" onclick="enterApp('monografi')">
+        <div class="land-card-num">Modul 03</div>
+        <div class="land-card-icon green"><i class="ti ti-users"></i></div>
+        <h3>Profil & Monografi Desa</h3>
+        <p>Data kependudukan, sosial ekonomi, sarana prasarana, dan luas wilayah tiap desa.</p>
+      </div>
+      <div class="land-card" onclick="enterApp('komoditas')">
+        <div class="land-card-num">Modul 04</div>
+        <div class="land-card-icon blue"><i class="ti ti-plant-2"></i></div>
+        <h3>Data Komoditas Desa</h3>
+        <p>Pemetaan potensi ekonomi pertanian, perkebunan, peternakan, perikanan, dan UMKM.</p>
+      </div>
+      <div class="land-card" onclick="enterApp('perangkat')">
+        <div class="land-card-num">Modul 05</div>
+        <div class="land-card-icon gold"><i class="ti ti-id-badge-2"></i></div>
+        <h3>Data Perangkat Desa</h3>
+        <p>Struktur organisasi dan profil seluruh perangkat desa dari kepala desa hingga RT/RW.</p>
+      </div>
+      <div class="land-card" onclick="enterApp('berita')">
+        <div class="land-card-num">Modul 06</div>
+        <div class="land-card-icon green"><i class="ti ti-news"></i></div>
+        <h3>Berita & Kegiatan Desa</h3>
+        <p>Rekap berita, kalender kegiatan, galeri dokumentasi, dan status publikasi konten desa.</p>
+      </div>
+      <div class="land-card" onclick="enterApp('lapak')">
+        <div class="land-card-num">Modul 07</div>
+        <div class="land-card-icon blue"><i class="ti ti-shopping-bag"></i></div>
+        <h3>Lapak Desa / Produk Unggulan</h3>
+        <p>Katalog produk UMKM, profil pelapak, dan promosi produk unggulan kecamatan.</p>
+      </div>
+      <div class="land-card" onclick="enterApp('aset')">
+        <div class="land-card-num">Modul 08</div>
+        <div class="land-card-icon gold"><i class="ti ti-building-community"></i></div>
+        <h3>Aset Desa</h3>
+        <p>Pencatatan tanah, bangunan, inventaris barang, geo tagging, dan status kondisi aset.</p>
+      </div>
+      <div class="land-card" onclick="enterApp('pengguna')">
+        <div class="land-card-num">Modul 09</div>
+        <div class="land-card-icon green"><i class="ti ti-shield-lock"></i></div>
+        <h3>Pengguna & Hak Akses</h3>
+        <p>Manajemen akun, role & permission, pembatasan data per desa, dan log aktivitas pengguna.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="land-footer" id="tentang">
+    <div>
+      <div class="land-logo" style="margin-bottom:8px">
+        <div class="land-logo-icon" style="width:30px;height:30px;font-size:14px"><i class="ti ti-map-2"></i></div>
+        <div class="land-logo-text" style="font-size:16px">SIPADES</div>
+      </div>
+      <div class="land-footer-copy">© 2025 Sistem Informasi Pemerintahan Desa Kecamatan. Hak cipta dilindungi.</div>
+    </div>
+    <div class="land-footer-links">
+      <a href="#">Panduan</a>
+      <a href="#">Kebijakan Privasi</a>
+      <a href="#">Hubungi Kami</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ==================== APP ==================== -->
+<div id="app">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-header">
+      <div class="sb-logo">
+        <div class="sb-logo-icon"><i class="ti ti-map-2"></i></div>
+        <div>
+          <div class="sb-logo-text">SIPADES</div>
+          <div class="sb-logo-sub">Kecamatan Ilir Barat</div>
         </div>
       </div>
-
-      <!-- Kanan: Pejabat + Kegiatan + Galeri -->
+    </div>
+    <div class="sb-user">
+      <div class="sb-user-avatar">AK</div>
       <div>
-        <!-- Org Chart -->
-        <div class="info-card fade-up">
-          <h3>🏛 Struktur Organisasi</h3>
-          <div class="org-chart">
-            <div class="org-head">
-              <div class="org-avatar">👨‍💼</div>
-              <div class="org-name">H. Budi Santoso, S.Sos</div>
-              <div class="org-role">Kepala Desa</div>
-            </div>
-            <div class="org-line"></div>
-            <div class="org-row">
-              <div class="org-member">
-                <div class="org-avatar">👩‍💼</div>
-                <div class="org-name">Sri Wahyuni</div>
-                <div class="org-role">Sekretaris</div>
-              </div>
-              <div class="org-member">
-                <div class="org-avatar">👨‍💼</div>
-                <div class="org-name">Ahmad Fauzi</div>
-                <div class="org-role">Kaur Umum</div>
-              </div>
-              <div class="org-member">
-                <div class="org-avatar">👩‍💼</div>
-                <div class="org-name">Rina Dewi</div>
-                <div class="org-role">Kaur Keuangan</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Pejabat Desa -->
-        <div class="info-card fade-up">
-          <h3>👥 Daftar Pejabat Desa</h3>
-          <div class="official-list">
-            <div class="official-item"><div class="av">👨‍💼</div><div class="info"><h4>H. Budi Santoso, S.Sos</h4><p>Kepala Desa · 0812-3456-7890</p></div></div>
-            <div class="official-item"><div class="av">👩‍💼</div><div class="info"><h4>Sri Wahyuni, A.Md</h4><p>Sekretaris Desa · 0813-4567-8901</p></div></div>
-            <div class="official-item"><div class="av">👨‍💼</div><div class="info"><h4>Ahmad Fauzi</h4><p>Kaur Umum & Perencanaan · 0814-5678-9012</p></div></div>
-            <div class="official-item"><div class="av">👩‍💼</div><div class="info"><h4>Rina Dewi, SE</h4><p>Kaur Keuangan · 0815-6789-0123</p></div></div>
-            <div class="official-item"><div class="av">👨‍💼</div><div class="info"><h4>Sukarno Hadi</h4><p>Kasie Pemerintahan · 0816-7890-1234</p></div></div>
-          </div>
-        </div>
-
-        <!-- Agenda Kegiatan -->
-        <div class="info-card fade-up">
-          <h3>📅 Agenda Kegiatan Desa</h3>
-          <div class="kegiatan-list">
-            <div class="kegiatan-item">
-              <div class="kegiatan-date"><div class="day">15</div><div class="mon">Jun</div></div>
-              <div class="kegiatan-info"><h4>Musyawarah Desa RKPDes 2026</h4><p>Balai Desa · 09:00 WIB · Seluruh warga undangan</p></div>
-            </div>
-            <div class="kegiatan-item">
-              <div class="kegiatan-date"><div class="day">20</div><div class="mon">Jun</div></div>
-              <div class="kegiatan-info"><h4>Posyandu Dusun Wonosari & Wonorejo</h4><p>Posyandu Mawar · 07:30 WIB</p></div>
-            </div>
-            <div class="kegiatan-item">
-              <div class="kegiatan-date"><div class="day">28</div><div class="mon">Jun</div></div>
-              <div class="kegiatan-info"><h4>Lomba Kebersihan Antar Dusun</h4><p>Seluruh wilayah desa · Penilaian dimulai pukul 08:00</p></div>
-            </div>
-            <div class="kegiatan-item">
-              <div class="kegiatan-date"><div class="day">05</div><div class="mon">Jul</div></div>
-              <div class="kegiatan-info"><h4>Pelatihan UMKM Digital Desa</h4><p>Balai Desa · 09:00–15:00 WIB · Terbatas 40 peserta</p></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Galeri -->
-        <div class="info-card fade-up">
-          <h3>🖼 Galeri & Dokumentasi Desa</h3>
-          <div class="galeri-grid">
-            <div class="galeri-item" onclick="showToast('🖼 Membuka galeri foto lengkap...')">
-              <div class="galeri-bg" style="background:linear-gradient(135deg,#1a3a2a,#3d7a56)">🏗️</div>
-              <div class="galeri-overlay">🔍</div>
-            </div>
-            <div class="galeri-item" onclick="showToast('🖼 Membuka galeri foto lengkap...')">
-              <div class="galeri-bg" style="background:linear-gradient(135deg,#c8972a,#e4b84a)">🌾</div>
-              <div class="galeri-overlay">🔍</div>
-            </div>
-            <div class="galeri-item" onclick="showToast('🖼 Membuka galeri foto lengkap...')">
-              <div class="galeri-bg" style="background:linear-gradient(135deg,#2d5a40,#c8972a)">🎭</div>
-              <div class="galeri-overlay">🔍</div>
-            </div>
-            <div class="galeri-item" onclick="showToast('🖼 Membuka galeri foto lengkap...')">
-              <div class="galeri-bg" style="background:linear-gradient(135deg,#1a3a2a,#e4b84a)">🎓</div>
-              <div class="galeri-overlay">🔍</div>
-            </div>
-            <div class="galeri-item" onclick="showToast('🖼 Membuka galeri foto lengkap...')">
-              <div class="galeri-bg" style="background:linear-gradient(135deg,#3d7a56,#1c1c1c)">🏊</div>
-              <div class="galeri-overlay">🔍</div>
-            </div>
-          </div>
-        </div>
+        <div class="sb-user-name">Admin Kecamatan</div>
+        <div class="sb-user-role">Super Administrator</div>
       </div>
     </div>
+    <div class="sb-nav">
+      <div class="sb-section"><div class="sb-section-label">Utama</div></div>
+      <div class="sb-item active" onclick="navigate('dashboard',this)"><i class="ti ti-layout-dashboard"></i>Dashboard Kecamatan</div>
+
+      <div class="sb-section"><div class="sb-section-label">Data Wilayah</div></div>
+      <div class="sb-item" onclick="navigate('desa',this)"><i class="ti ti-home-2"></i>Data Desa</div>
+      <div class="sb-item" onclick="navigate('monografi',this)"><i class="ti ti-users"></i>Profil & Monografi</div>
+      <div class="sb-item" onclick="navigate('komoditas',this)"><i class="ti ti-plant-2"></i>Data Komoditas<span class="sb-item-badge">47</span></div>
+
+      <div class="sb-section"><div class="sb-section-label">Pemerintahan</div></div>
+      <div class="sb-item" onclick="navigate('perangkat',this)"><i class="ti ti-id-badge-2"></i>Perangkat Desa</div>
+      <div class="sb-item" onclick="navigate('berita',this)"><i class="ti ti-news"></i>Berita & Kegiatan<span class="sb-item-badge">12</span></div>
+
+      <div class="sb-section"><div class="sb-section-label">Ekonomi</div></div>
+      <div class="sb-item" onclick="navigate('lapak',this)"><i class="ti ti-shopping-bag"></i>Lapak Desa</div>
+      <div class="sb-item" onclick="navigate('aset',this)"><i class="ti ti-building-community"></i>Aset Desa</div>
+
+      <div class="sb-section"><div class="sb-section-label">Sistem</div></div>
+      <div class="sb-item" onclick="navigate('pengguna',this)"><i class="ti ti-shield-lock"></i>Pengguna & Akses</div>
+      <div class="sb-item" onclick="backToLanding()"><i class="ti ti-door-exit"></i>Kembali ke Beranda</div>
+    </div>
   </div>
-</section>
 
-<div class="batik-divider"></div>
-
-<!-- ══ LAPAK KAMPUNG ══ -->
-<section id="lapak" class="section">
-  <div class="section-inner">
-    <div class="lapak-header">
-      <div>
-        <div class="section-eyebrow">Produk Lokal Unggulan</div>
-        <h2 class="section-title" style="margin-bottom:0">Lapak Kampung Desa</h2>
+  <!-- MAIN -->
+  <div class="main-content" id="mainContent">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div>
+          <div class="topbar-title" id="topbarTitle">Dashboard Kecamatan</div>
+          <div class="topbar-breadcrumb" id="topbarBreadcrumb">SIPADES / Dashboard</div>
+        </div>
       </div>
-      <div style="text-align:right">
-        <div style="font-size:0.8rem;color:var(--muted)">Total Produk</div>
-        <div style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--forest);font-weight:700">48</div>
+      <div class="topbar-right">
+        <div class="topbar-btn topbar-notif" onclick="showToast('Tidak ada notifikasi baru')"><i class="ti ti-bell"></i><span class="notif-dot"></span></div>
+        <div class="topbar-btn" onclick="showToast('Pengaturan sistem dibuka')"><i class="ti ti-settings"></i></div>
+        <div class="topbar-btn" onclick="showToast('Profil akun dibuka')"><i class="ti ti-user-circle"></i></div>
       </div>
     </div>
-
-    <!-- Search -->
-    <div class="search-bar fade-up">
-      <span>🔍</span>
-      <input type="text" id="prodSearchInput" placeholder="Cari produk, nama pelapak..." oninput="filterProducts()">
-      <select id="prodCatFilter" onchange="filterProducts()">
-        <option value="">Semua Kategori</option>
-        <option value="Pertanian">Pertanian</option>
-        <option value="Kerajinan">Kerajinan</option>
-        <option value="Kuliner">Kuliner</option>
-        <option value="Peternakan">Peternakan</option>
-      </select>
-      <button class="btn-search" onclick="filterProducts()">Cari</button>
-    </div>
-
-    <!-- Category -->
-    <div class="product-cats fade-up">
-      <button class="prod-cat active" onclick="setActiveProdCat(this,'')">🛍 Semua</button>
-      <button class="prod-cat" onclick="setActiveProdCat(this,'Pertanian')">🌾 Pertanian</button>
-      <button class="prod-cat" onclick="setActiveProdCat(this,'Kerajinan')">🎨 Kerajinan</button>
-      <button class="prod-cat" onclick="setActiveProdCat(this,'Kuliner')">🍽 Kuliner</button>
-      <button class="prod-cat" onclick="setActiveProdCat(this,'Peternakan')">🐄 Peternakan</button>
-    </div>
-
-    <!-- Product grid -->
-    <div class="product-grid fade-up" id="productGrid">
-      <!-- Generated by JS -->
-    </div>
+    <div class="page-content" id="pageContent"></div>
   </div>
-</section>
+</div>
 
-<!-- ══ FOOTER ══ -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="logo-text">🌿 Desa Sumber Suko Jaya</div>
-      <p style="margin-top:0.5rem;margin-bottom:1rem">Portal resmi pemerintahan Desa Sumber Suko Jaya, Kecamatan Belitang, Kabupaten Oku Timur, Sumatera Selatan.</p>
-      <p style="font-size:0.8rem">📍 Jl. Raya Desa No. 1, Dusun Wonosari<br>📞 (0281) 123-4567<br>✉️ desasumbersukojaya@gmail.com</p>
-    </div>
-    <div class="footer-col">
-      <h4>Navigasi</h4>
-      <ul>
-        <li><a href="#home">Beranda</a></li>
-        <li><a href="#berita">Berita Desa</a></li>
-        <li><a href="#monografi">Monografi</a></li>
-        <li><a href="#tentang">Tentang Desa</a></li>
-        <li><a href="#lapak">Lapak Kampung</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Layanan</h4>
-      <ul>
-        <li><a href="#" onclick="showToast('⚙️ Fitur sedang dikembangkan')">Surat Keterangan</a></li>
-        <li><a href="#" onclick="showToast('⚙️ Fitur sedang dikembangkan')">Administrasi Kependudukan</a></li>
-        <li><a href="#" onclick="showToast('⚙️ Fitur sedang dikembangkan')">Pengaduan Masyarakat</a></li>
-        <li><a href="#tentang">Kirim Saran</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Tautan</h4>
-      <ul>
-        <li><a href="#" onclick="showToast('🔗 Membuka portal Kabupaten...')">Portal Kabupaten</a></li>
-        <li><a href="#" onclick="showToast('🔗 Membuka Siskeudes...')">Siskeudes</a></li>
-        <li><a href="#" onclick="showToast('🔗 Membuka portal Desa Indonesia...')">Desa Indonesia</a></li>
-        <li><a href="#" onclick="showToast('🔗 Membuka OpenDesa...')">OpenDesa</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2025 Desa Sumber Suko Jaya · Hak Cipta Dilindungi</span>
-    <span style="color:var(--gold-lt)">Dibuat dengan ❤️ untuk warga desa</span>
-  </div>
-</footer>
-
-<!-- ══ MODAL ══ -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal" id="modal">
+  <div class="modal" id="modalBox">
     <div class="modal-header">
-      <div class="modal-title" id="modalTitle">Judul</div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-title" id="modalTitle">Detail</div>
+      <button class="modal-close" onclick="closeModal()"><i class="ti ti-x"></i></button>
     </div>
-    <div class="modal-body">
-      <div class="modal-img" id="modalImg">🖼</div>
-      <div class="modal-meta" id="modalMeta"></div>
-      <div class="modal-content" id="modalContent"></div>
-    </div>
-    <div class="modal-actions" id="modalActions"></div>
+    <div id="modalBody"></div>
   </div>
 </div>
 
 <!-- TOAST -->
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast">
+  <i class="ti ti-check"></i>
+  <span id="toastMsg"></span>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
-// ══ DATA ══
-const newsData = [
-  { id:1, title:'Program Bantuan Sembako Warga Lansia', cat:'Pengumuman', icon:'🛒', color:'#fff3e0', date:'02 Jun 2025', desc:'Pemdes menyalurkan bantuan sembako bagi 187 warga lansia yang terdaftar dalam DTKS.' },
-  { id:2, title:'Gotong Royong Bersih Desa Setiap Jumat', cat:'Pengumuman', icon:'🧹', color:'#e8f5e9', date:'30 Mei 2025', desc:'Kegiatan bersih desa rutin setiap Jumat pagi melibatkan seluruh perangkat dan relawan desa.' },
-  { id:3, title:'SDN Wonorejo Raih Juara Olimpiade', cat:'Pendidikan', icon:'🏆', color:'#f3e5f5', date:'28 Mei 2025', desc:'Siswa SDN Wonorejo meraih juara 2 olimpiade matematika tingkat kabupaten.' },
-  { id:4, title:'Pelatihan Pembuatan Batik Tulis Desa', cat:'Kerajinan', icon:'🎨', color:'#fce4ec', date:'25 Mei 2025', desc:'Program pelatihan batik tulis bagi 40 ibu rumah tangga dari empat dusun telah resmi dimulai.' },
-  { id:5, title:'Renovasi Mushola Dusun Sejahtera Selesai', cat:'Pembangunan', icon:'🕌', color:'#e8f5e9', date:'22 Mei 2025', desc:'Renovasi Mushola Al-Ikhlas Dusun Sidorejo tuntas dikerjakan dengan dana swadaya Rp 85 juta.' },
-  { id:6, title:'Vaksinasi Hewan Ternak Gratis Dilaksanakan', cat:'Kesehatan', icon:'💉', color:'#e3f2fd', date:'18 Mei 2025', desc:'Dinas Pertanian melaksanakan vaksinasi gratis untuk 420 ekor ternak sapi dan kambing warga.' },
+// =========== DATA ===========
+const desaList=[
+  {id:1,nama:'Desa Sukamaju',kode:'3212010001',kepala:'H. Subandi',penduduk:3847,kk:1024,status:'Aktif',web:'Aktif',lengkap:95,lat:55,lng:35},
+  {id:2,nama:'Desa Mekarjaya',kode:'3212010002',kepala:'Siti Rahayu',penduduk:2634,kk:712,status:'Aktif',web:'Aktif',lengkap:88,lat:45,lng:55},
+  {id:3,nama:'Desa Cibeureum',kode:'3212010003',kepala:'Drs. Agus Santoso',penduduk:4201,kk:1189,status:'Aktif',web:'Draft',lengkap:72,lat:65,lng:45},
+  {id:4,nama:'Desa Ciawi',kode:'3212010004',kepala:'Nurhayati, S.Pd',penduduk:1892,kk:521,status:'Aktif',web:'Aktif',lengkap:100,lat:35,lng:65},
+  {id:5,nama:'Desa Pasirjaya',kode:'3212010005',kepala:'Bambang Irawan',penduduk:3156,kk:867,status:'Aktif',web:'Belum',lengkap:45,lat:70,lng:30},
+  {id:6,nama:'Desa Sindangjaya',kode:'3212010006',kepala:'Hj. Mariam',penduduk:2748,kk:734,status:'Aktif',web:'Aktif',lengkap:81,lat:30,lng:50},
+  {id:7,nama:'Desa Karanganyar',kode:'3212010007',kepala:'Eko Prasetyo',penduduk:5023,kk:1347,status:'Aktif',web:'Aktif',lengkap:93,lat:55,lng:70},
+];
+const komoditasList=[
+  {id:1,nama:'Padi Sawah',kategori:'Pertanian',desa:'Desa Sukamaju',produksi:'48 ton/tahun',luas:'12 ha',unggulan:true,icon:'🌾'},
+  {id:2,nama:'Karet',kategori:'Perkebunan',desa:'Desa Mekarjaya',produksi:'24 ton/tahun',luas:'8 ha',unggulan:true,icon:'🌿'},
+  {id:3,nama:'Lele',kategori:'Perikanan',desa:'Desa Cibeureum',produksi:'6 ton/tahun',luas:'20 kolam',unggulan:false,icon:'🐟'},
+  {id:4,nama:'Pisang Kepok',kategori:'Pertanian',desa:'Desa Ciawi',produksi:'18 ton/tahun',luas:'5 ha',unggulan:true,icon:'🍌'},
+  {id:5,nama:'Ayam Kampung',kategori:'Peternakan',desa:'Desa Pasirjaya',produksi:'2.000 ekor',luas:'3 kandang',unggulan:false,icon:'🐓'},
+  {id:6,nama:'Keripik Singkong',kategori:'UMKM',desa:'Desa Sindangjaya',produksi:'500 kg/bln',luas:'5 unit',unggulan:true,icon:'🍟'},
+  {id:7,nama:'Kopi Robusta',kategori:'Perkebunan',desa:'Desa Karanganyar',produksi:'12 ton/tahun',luas:'6 ha',unggulan:true,icon:'☕'},
+  {id:8,nama:'Anyaman Bambu',kategori:'Kerajinan',desa:'Desa Sukamaju',produksi:'300 unit/bln',luas:'8 unit',unggulan:false,icon:'🧺'},
+  {id:9,nama:'Ikan Mas',kategori:'Perikanan',desa:'Desa Mekarjaya',produksi:'4 ton/tahun',luas:'15 kolam',unggulan:false,icon:'🐠'},
+];
+const perangkatList=[
+  {id:1,nama:'H. Subandi',jabatan:'Kepala Desa',desa:'Desa Sukamaju',kontak:'0812-3456-7890',status:'Aktif',mulai:'2021'},
+  {id:2,nama:'Ahmad Ridwan, S.Sos',jabatan:'Sekretaris Desa',desa:'Desa Sukamaju',kontak:'0813-2345-6789',status:'Aktif',mulai:'2020'},
+  {id:3,nama:'Dewi Lestari',jabatan:'Kaur Keuangan',desa:'Desa Sukamaju',kontak:'0814-3456-7891',status:'Aktif',mulai:'2020'},
+  {id:4,nama:'Siti Rahayu',jabatan:'Kepala Desa',desa:'Desa Mekarjaya',kontak:'0815-4567-8901',status:'Aktif',mulai:'2022'},
+  {id:5,nama:'Budi Santoso',jabatan:'Sekretaris Desa',desa:'Desa Mekarjaya',kontak:'0816-5678-9012',status:'Aktif',mulai:'2021'},
+  {id:6,nama:'Drs. Agus Santoso',jabatan:'Kepala Desa',desa:'Desa Cibeureum',kontak:'0817-6789-0123',status:'Aktif',mulai:'2019'},
+];
+const beritaList=[
+  {id:1,judul:'Musyawarah Desa Penetapan APBDes 2025',desa:'Desa Sukamaju',kategori:'Pemerintahan',tanggal:'2025-06-10',status:'Terbit',views:234},
+  {id:2,judul:'Panen Raya Padi Sawah Tahun 2025',desa:'Desa Ciawi',kategori:'Pertanian',tanggal:'2025-06-08',status:'Terbit',views:189},
+  {id:3,judul:'Gotong Royong Bersih Desa Setiap Jumat',desa:'Desa Karanganyar',kategori:'Kegiatan',tanggal:'2025-06-07',status:'Terbit',views:312},
+  {id:4,judul:'Pelatihan UMKM Keripik Singkong bagi Ibu PKK',desa:'Desa Sindangjaya',kategori:'Ekonomi',tanggal:'2025-06-05',status:'Draft',views:0},
+  {id:5,judul:'Posyandu Balita Bulan Juni 2025',desa:'Desa Mekarjaya',kategori:'Kesehatan',tanggal:'2025-06-03',status:'Terbit',views:145},
+  {id:6,judul:'Pembangunan Jembatan Desa Tahap 2',desa:'Desa Pasirjaya',kategori:'Infrastruktur',tanggal:'2025-06-01',status:'Arsip',views:567},
+];
+const produkList=[
+  {id:1,nama:'Keripik Pisang Aneka Rasa',desa:'Desa Ciawi',pelapak:'Bu Sumiati',harga:'Rp 15.000',satuan:'bungkus 250g',stok:'Tersedia',ikon:'🍌',kategori:'Makanan'},
+  {id:2,nama:'Kopi Robusta Bubuk Premium',desa:'Desa Karanganyar',pelapak:'Pak Eko Prasetyo',harga:'Rp 45.000',satuan:'250g',stok:'Tersedia',ikon:'☕',kategori:'Minuman'},
+  {id:3,nama:'Anyaman Tikar Bambu',desa:'Desa Sukamaju',pelapak:'Koperasi Maju Bersama',harga:'Rp 85.000',satuan:'lembar',stok:'Terbatas',ikon:'🧺',kategori:'Kerajinan'},
+  {id:4,nama:'Beras Pandan Wangi Organik',desa:'Desa Sukamaju',pelapak:'Poktan Mekar Tani',harga:'Rp 55.000',satuan:'5 kg',stok:'Tersedia',ikon:'🌾',kategori:'Pertanian'},
+  {id:5,nama:'Ikan Lele Segar',desa:'Desa Cibeureum',pelapak:'Pak Suhendi',harga:'Rp 28.000',satuan:'kg',stok:'Tersedia',ikon:'🐟',kategori:'Perikanan'},
+  {id:6,nama:'Tempe Gembus Homemade',desa:'Desa Mekarjaya',pelapak:'Bu Ratna',harga:'Rp 8.000',satuan:'papan',stok:'Kosong',ikon:'🫘',kategori:'Makanan'},
+];
+const asetList=[
+  {id:1,nama:'Tanah Kas Desa Sukamaju',tipe:'Tanah',desa:'Desa Sukamaju',luas:'2.500 m²',status:'Aktif',nilai:'Rp 375 juta',keterangan:'Sertifikat HM No. 001'},
+  {id:2,nama:'Kantor Desa Mekarjaya',tipe:'Bangunan',desa:'Desa Mekarjaya',luas:'180 m²',status:'Aktif',nilai:'Rp 280 juta',keterangan:'Kondisi baik'},
+  {id:3,nama:'Balai Pertemuan Karanganyar',tipe:'Bangunan',desa:'Desa Karanganyar',luas:'350 m²',status:'Aktif',nilai:'Rp 520 juta',keterangan:'Renovasi 2023'},
+  {id:4,nama:'Kendaraan Dinas Roda Dua',tipe:'Inventaris',desa:'Desa Ciawi',luas:'-',status:'Aktif',nilai:'Rp 22 juta',keterangan:'Honda Beat 2022'},
+  {id:5,nama:'Tanah Makam Desa Cibeureum',tipe:'Tanah',desa:'Desa Cibeureum',luas:'1.200 m²',status:'Aktif',nilai:'Rp 96 juta',keterangan:'Sudah bersertifikat'},
+  {id:6,nama:'Komputer & Printer Kantor',tipe:'Inventaris',desa:'Desa Pasirjaya',luas:'-',status:'Rusak Ringan',nilai:'Rp 15 juta',keterangan:'Perlu servis printer'},
+];
+const userList=[
+  {id:1,nama:'Admin Kecamatan',email:'admin@kecamatan.go.id',role:'Super Admin',desa:'Semua Desa',status:'Aktif',terakhir:'Hari ini, 09:15'},
+  {id:2,nama:'Operator Sukamaju',email:'op.sukamaju@desa.go.id',role:'Operator Desa',desa:'Desa Sukamaju',status:'Aktif',terakhir:'Hari ini, 08:42'},
+  {id:3,nama:'Operator Mekarjaya',email:'op.mekarjaya@desa.go.id',role:'Operator Desa',desa:'Desa Mekarjaya',status:'Aktif',terakhir:'Kemarin, 16:30'},
+  {id:4,nama:'Operator Cibeureum',email:'op.cibeureum@desa.go.id',role:'Operator Desa',desa:'Desa Cibeureum',status:'Nonaktif',terakhir:'3 hari lalu'},
+  {id:5,nama:'Viewer Kecamatan',email:'viewer@kecamatan.go.id',role:'Viewer',desa:'Semua Desa',status:'Aktif',terakhir:'Hari ini, 07:20'},
 ];
 
-const products = [
-  { id:1, name:'Beras Organik Desa', seller:'Kelompok Tani Mekar', price:'Rp 14.000', unit:'/kg', icon:'🌾', color:'linear-gradient(135deg,#e8f5e9,#c8e6c9)', cat:'Pertanian', avail:true },
-  { id:2, name:'Gula Merah Aren Asli', seller:'Bu Sari – UMKM Desa', price:'Rp 28.000', unit:'/kg', icon:'🍯', color:'linear-gradient(135deg,#fff3e0,#ffe0b2)', cat:'Kuliner', avail:true },
-  { id:3, name:'Batik Tulis Motif Desa', seller:'Sanggar Batik Nusantara', price:'Rp 185.000', unit:'/pcs', icon:'🎨', color:'linear-gradient(135deg,#f3e5f5,#e1bee7)', cat:'Kerajinan', avail:true },
-  { id:4, name:'Telur Ayam Kampung Segar', seller:'Pak Hendra Ternak', price:'Rp 2.500', unit:'/butir', icon:'🥚', color:'linear-gradient(135deg,#fff8e1,#ffecb3)', cat:'Peternakan', avail:true },
-  { id:5, name:'Keripik Singkong Pedas Manis', seller:'Bu Rohmah Snack', price:'Rp 12.000', unit:'/200gr', icon:'🍟', color:'linear-gradient(135deg,#fce4ec,#f8bbd9)', cat:'Kuliner', avail:false },
-  { id:6, name:'Anyaman Bambu Kerajinan', seller:'Pak Surya Bambu', price:'Rp 75.000', unit:'/buah', icon:'🧺', color:'linear-gradient(135deg,#e8f5e9,#a5d6a7)', cat:'Kerajinan', avail:true },
-  { id:7, name:'Kopi Arabika Pegunungan', seller:'Kebun Kopi Subur', price:'Rp 85.000', unit:'/250gr', icon:'☕', color:'linear-gradient(135deg,#efebe9,#d7ccc8)', cat:'Pertanian', avail:true },
-  { id:8, name:'Madu Hutan Murni', seller:'Kelompok Lebah Desa', price:'Rp 120.000', unit:'/250ml', icon:'🍯', color:'linear-gradient(135deg,#fff3e0,#ffcc02)', cat:'Pertanian', avail:true },
-];
+// =========== NAVIGATION ===========
+let currentPage='dashboard';
+const pageMeta={
+  dashboard:{title:'Dashboard Kecamatan',breadcrumb:'SIPADES / Dashboard'},
+  desa:{title:'Data Desa',breadcrumb:'SIPADES / Data Desa'},
+  monografi:{title:'Profil & Monografi Desa',breadcrumb:'SIPADES / Profil & Monografi'},
+  komoditas:{title:'Data Komoditas Desa',breadcrumb:'SIPADES / Komoditas'},
+  perangkat:{title:'Data Perangkat Desa',breadcrumb:'SIPADES / Perangkat Desa'},
+  berita:{title:'Berita & Kegiatan Desa',breadcrumb:'SIPADES / Berita & Kegiatan'},
+  lapak:{title:'Lapak Desa / Produk Unggulan',breadcrumb:'SIPADES / Lapak Desa'},
+  aset:{title:'Aset Desa',breadcrumb:'SIPADES / Aset Desa'},
+  pengguna:{title:'Pengguna & Hak Akses',breadcrumb:'SIPADES / Pengguna & Akses'},
+};
+function navigate(page,el){
+  currentPage=page;
+  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  if(el)el.classList.add('active');
+  const meta=pageMeta[page]||{title:page,breadcrumb:'SIPADES / '+page};
+  document.getElementById('topbarTitle').textContent=meta.title;
+  document.getElementById('topbarBreadcrumb').textContent=meta.breadcrumb;
+  document.getElementById('mainContent').scrollTop=0;
+  renderPage(page);
+}
+function enterApp(page){
+  document.getElementById('landing').style.display='none';
+  document.getElementById('app').style.display='flex';
+  navigate(page||'dashboard');
+}
+function backToLanding(){
+  document.getElementById('app').style.display='none';
+  document.getElementById('landing').style.display='flex';
+}
+function renderPage(p){
+  const el=document.getElementById('pageContent');
+  const fns={dashboard:renderDashboard,desa:renderDesa,monografi:renderMonografi,komoditas:renderKomoditas,perangkat:renderPerangkat,berita:renderBerita,lapak:renderLapak,aset:renderAset,pengguna:renderPengguna};
+  el.innerHTML='';
+  if(fns[p])fns[p](el);
+}
 
-// ══ RENDER NEWS ══
-function renderNews(data) {
-  const grid = document.getElementById('newsGrid');
-  const colors = { 'Pembangunan':'badge-green','Kesehatan':'badge-blue','Pertanian':'badge-orange','Pendidikan':'badge-purple','Pengumuman':'badge-blue','Kerajinan':'badge-purple' };
-  const bgColors = { 'Pembangunan':'linear-gradient(135deg,#1a3a2a,#3d7a56)','Kesehatan':'linear-gradient(135deg,#1565c0,#1e88e5)','Pertanian':'linear-gradient(135deg,#e65100,#fb8c00)','Pendidikan':'linear-gradient(135deg,#6a1b9a,#ab47bc)','Pengumuman':'linear-gradient(135deg,#1a3a2a,#c8972a)','Kerajinan':'linear-gradient(135deg,#880e4f,#c2185b)' };
-  grid.innerHTML = data.map(n => `
-    <div class="news-card" onclick="openNewsModal('${n.title}','${n.desc}','${n.icon}','${n.color}')">
-      <div class="news-card-img" style="background:${bgColors[n.cat]||'linear-gradient(135deg,#1a3a2a,#3d7a56)'}"><span>${n.icon}</span></div>
-      <div class="news-card-body">
-        <span class="news-badge ${colors[n.cat]||'badge-green'}">${n.cat}</span>
-        <h3>${n.title}</h3>
-        <p>${n.desc}</p>
-        <div class="news-meta">📅 ${n.date}</div>
-      </div>
+// =========== HELPERS ===========
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+function openModal(title,html){
+  document.getElementById('modalTitle').textContent=title;
+  document.getElementById('modalBody').innerHTML=html;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal(e){
+  if(!e||e.target===document.getElementById('modalOverlay'))
+    document.getElementById('modalOverlay').classList.remove('open');
+}
+function badgeWeb(s){
+  if(s==='Aktif')return '<span class="badge badge-green">Aktif</span>';
+  if(s==='Draft')return '<span class="badge badge-gold">Draft</span>';
+  return '<span class="badge badge-red">Belum</span>';
+}
+function badgeStatus(s){
+  const m={Terbit:'badge-green',Draft:'badge-gold',Arsip:'badge-gray',Aktif:'badge-green',Nonaktif:'badge-red','Rusak Ringan':'badge-orange','Rusak Berat':'badge-red','Tersedia':'badge-green','Terbatas':'badge-gold','Kosong':'badge-red'};
+  return `<span class="badge ${m[s]||'badge-gray'}">${s}</span>`;
+}
+function progressBar(val,color=''){
+  return `<div style="display:flex;align-items:center;gap:10px"><div class="progress-bar" style="flex:1"><div class="progress-fill ${color}" style="width:${val}%"></div></div><span style="font-size:12px;color:var(--muted);min-width:30px">${val}%</span></div>`;
+}
+function avatarEl(name,bg='var(--blue)'){
+  const ini=name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+  return `<div class="avatar" style="background:${bg};color:var(--white)">${ini}</div>`;
+}
+function iconBg(i,bg,color='var(--white)'){return`<div class="stat-card-icon" style="background:${bg};color:${color}">${i}</div>`}
+
+// =========== PAGES ===========
+
+// --- DASHBOARD ---
+function renderDashboard(el){
+  el.innerHTML=`
+  <div class="page-header">
+    <div class="page-title-main">Selamat Pagi, Admin Kecamatan 👋</div>
+    <div class="page-subtitle">Berikut ringkasan kondisi seluruh desa — Senin, 16 Juni 2025</div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-card-top">${iconBg('<i class="ti ti-home-2"></i>','#EBF3FD','var(--blue)')}<span class="stat-card-trend trend-up">▲ 0%</span></div>
+      <div class="stat-card-num">7</div>
+      <div class="stat-card-label">Total Desa</div>
+      <div class="stat-card-line" style="background:var(--blue)"></div>
     </div>
-  `).join('');
-}
-
-function filterNews() {
-  const q = document.getElementById('searchInput').value.toLowerCase();
-  const cat = document.getElementById('catFilter').value;
-  renderNews(newsData.filter(n =>
-    (!q || n.title.toLowerCase().includes(q) || n.desc.toLowerCase().includes(q)) &&
-    (!cat || n.cat === cat)
-  ));
-}
-
-function setActiveTab(el, cat) {
-  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('catFilter').value = cat;
-  filterNews();
-}
-
-// ══ RENDER PRODUCTS ══
-function renderProducts(data) {
-  document.getElementById('productGrid').innerHTML = data.map(p => `
-    <div class="product-card">
-      <div class="product-img" style="background:${p.color}">
-        <span>${p.icon}</span>
-        <span class="product-badge-avail ${p.avail?'avail':'kosong'}">${p.avail?'✓ Tersedia':'✗ Kosong'}</span>
+    <div class="stat-card">
+      <div class="stat-card-top">${iconBg('<i class="ti ti-users"></i>','#FEF7E0','var(--gold)')}<span class="stat-card-trend trend-up">▲ 2,3%</span></div>
+      <div class="stat-card-num">23.501</div>
+      <div class="stat-card-label">Total Penduduk</div>
+      <div class="stat-card-line" style="background:var(--gold)"></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-top">${iconBg('<i class="ti ti-plant-2"></i>','#E6F7EF','var(--green)')}<span class="stat-card-trend trend-up">▲ 12%</span></div>
+      <div class="stat-card-num">47</div>
+      <div class="stat-card-label">Total Komoditas</div>
+      <div class="stat-card-line" style="background:var(--green)"></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-top">${iconBg('<i class="ti ti-shopping-bag"></i>','#FDEEEE','var(--red)')}<span class="stat-card-trend trend-down">▼ 3%</span></div>
+      <div class="stat-card-num">156</div>
+      <div class="stat-card-label">Produk Lapak</div>
+      <div class="stat-card-line" style="background:var(--red)"></div>
+    </div>
+  </div>
+  <div class="main-side">
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title">Monitoring Peta Desa</div><div class="card-subtitle">Klik marker untuk detail desa</div></div>
+          <button class="btn btn-ghost btn-sm" onclick="showToast('Membuka tampilan peta penuh')"><i class="ti ti-arrows-maximize"></i> Perluas</button>
+        </div>
+        <div class="map-container">
+          <div class="map-grid"></div>
+          <div class="map-markers">
+            ${desaList.map(d=>`
+            <div class="map-marker" style="left:${d.lng}%;top:${d.lat}%" onclick="showToast('${d.nama} — Kades: ${d.kepala} | ${d.penduduk.toLocaleString()} jiwa')">
+              <div class="map-dot"></div>
+              <div class="map-marker-label">${d.nama.replace('Desa ','')}</div>
+            </div>`).join('')}
+          </div>
+          <div class="map-legend">
+            <div class="map-legend-title">Keterangan</div>
+            <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--gold)"></div>Desa Aktif</div>
+            <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--muted)"></div>Desa Non-Aktif</div>
+          </div>
+          <div style="position:absolute;top:16px;left:16px;background:rgba(10,22,40,0.7);padding:8px 14px;border-radius:8px;color:var(--white);font-size:12px"><i class="ti ti-map-pin" style="color:var(--gold)"></i> Kecamatan Ilir Barat</div>
+        </div>
       </div>
-      <div class="product-body">
-        <div class="product-name">${p.name}</div>
-        <div class="product-seller">🏪 ${p.seller}</div>
-        <div><span class="product-price">${p.price}</span> <span class="product-unit">${p.unit}</span></div>
-        <div class="product-actions">
-          <button class="btn-wa" onclick="openProductModal(${p.id})">💬 WhatsApp</button>
-          <button class="btn-share" onclick="shareProduct('${p.name}')">↗</button>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title">Kelengkapan Data Desa</div><div class="card-subtitle">Status pengisian data wajib</div></div>
+        </div>
+        <div style="padding:16px 24px">
+          ${desaList.map(d=>`
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px">
+            <div style="font-size:13px;font-weight:500;width:180px;flex-shrink:0">${d.nama}</div>
+            ${progressBar(d.lengkap, d.lengkap>=90?'green':d.lengkap>=70?'':'gold')}
+          </div>`).join('')}
         </div>
       </div>
     </div>
-  `).join('');
+    <div>
+      <div class="card" style="margin-bottom:24px">
+        <div class="card-header"><div class="card-title">Rekap Komoditas</div></div>
+        <div style="padding:16px 24px">
+          ${[['Pertanian','🌾',24,'var(--green)'],['Perkebunan','🌿',18,'var(--blue)'],['Perikanan','🐟',12,'#0EA5E9'],['Peternakan','🐓',8,'var(--orange)'],['UMKM','🏪',22,'var(--gold)'],['Kerajinan','🧺',14,'#8B5CF6']].map(([n,icon,v,c])=>`
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <span style="font-size:18px">${icon}</span>
+            <div style="flex:1">
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="font-weight:500">${n}</span><span style="color:var(--muted)">${v} item</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:${Math.round(v/24*100)}%;background:${c}"></div></div>
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Aktivitas Terbaru</div></div>
+        <div class="activity-list">
+          ${[
+            ['ti-news','#EBF3FD','var(--blue)','<strong>Desa Ciawi</strong> menerbitkan berita baru','2 jam lalu'],
+            ['ti-shopping-bag','#E6F7EF','var(--green)','<strong>Desa Sindangjaya</strong> menambah produk lapak','4 jam lalu'],
+            ['ti-id-badge-2','#FEF7E0','var(--gold)','<strong>Desa Karanganyar</strong> memperbarui data perangkat','Kemarin'],
+            ['ti-plant-2','#FDEEEE','var(--red)','<strong>Desa Mekarjaya</strong> menambah komoditas baru','2 hari lalu'],
+            ['ti-building-community','#F3F0FF','#7C3AED','<strong>Desa Sukamaju</strong> memperbarui data aset','3 hari lalu'],
+          ].map(([ic,bg,col,text,time])=>`
+          <div class="activity-item">
+            <div class="activity-icon" style="background:${bg};color:${col}"><i class="ti ${ic}"></i></div>
+            <div class="activity-body"><div class="activity-text">${text}</div><div class="activity-time">${time}</div></div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>
+  </div>`;
 }
 
-function filterProducts() {
-  const q = document.getElementById('prodSearchInput').value.toLowerCase();
-  const cat = document.getElementById('prodCatFilter').value;
-  renderProducts(products.filter(p =>
-    (!q || p.name.toLowerCase().includes(q) || p.seller.toLowerCase().includes(q)) &&
-    (!cat || p.cat === cat)
-  ));
+// --- DESA ---
+function renderDesa(el){
+  el.innerHTML=`
+  <div class="page-header">
+    <div class="page-title-main">Data Desa</div>
+    <div class="page-subtitle">Kelola dan pantau seluruh desa dalam wilayah kecamatan</div>
+  </div>
+  <div class="stat-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="stat-card">${iconBg('<i class="ti ti-home-2"></i>','#EBF3FD','var(--blue)')}<div class="stat-card-num" style="margin-top:12px">7</div><div class="stat-card-label">Total Desa</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-world"></i>','#E6F7EF','var(--green)')}<div class="stat-card-num" style="margin-top:12px">5</div><div class="stat-card-label">Web Aktif</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-clock"></i>','#FEF7E0','var(--gold)')}<div class="stat-card-num" style="margin-top:12px">1</div><div class="stat-card-label">Draft Web</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-alert-triangle"></i>','#FDEEEE','var(--red)')}<div class="stat-card-num" style="margin-top:12px">1</div><div class="stat-card-label">Belum Aktif</div></div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div><div class="card-title">Daftar Desa</div><div class="card-subtitle">${desaList.length} desa terdaftar</div></div>
+      <div class="card-actions">
+        <button class="btn btn-ghost btn-sm" onclick="showToast('Mengekspor data desa...')"><i class="ti ti-download"></i> Ekspor</button>
+        <button class="btn btn-primary btn-sm" onclick="showModalAddDesa()"><i class="ti ti-plus"></i> Tambah Desa</button>
+      </div>
+    </div>
+    <div class="search-bar">
+      <div class="search-wrapper"><i class="ti ti-search search-icon"></i><input class="search-input" placeholder="Cari nama desa..." oninput="filterTable(this,'tblDesa',0)"></div>
+      <select class="filter-select" onchange="filterTable(this,'tblDesa',5,'select')"><option value="">Semua Web</option><option>Aktif</option><option>Draft</option><option>Belum</option></select>
+    </div>
+    <table id="tblDesa">
+      <thead><tr><th>Nama Desa</th><th>Kode</th><th>Kepala Desa</th><th>Penduduk</th><th>KK</th><th>Status Web</th><th>Kelengkapan</th><th>Aksi</th></tr></thead>
+      <tbody>
+        ${desaList.map(d=>`<tr>
+          <td><div style="font-weight:600">${d.nama}</div><div style="font-size:11px;color:var(--muted)">${d.kode}</div></td>
+          <td style="color:var(--muted)">${d.kode}</td>
+          <td><div style="display:flex;align-items:center;gap:8px">${avatarEl(d.kepala,'var(--blue)')}<span>${d.kepala}</span></div></td>
+          <td>${d.penduduk.toLocaleString()}</td>
+          <td>${d.kk.toLocaleString()}</td>
+          <td>${badgeWeb(d.web)}</td>
+          <td style="min-width:140px">${progressBar(d.lengkap,d.lengkap>=90?'green':d.lengkap>=70?'':'gold')}</td>
+          <td><div style="display:flex;gap:6px">
+            <button class="btn btn-ghost btn-sm" onclick="showDesaDetail(${d.id})"><i class="ti ti-eye"></i></button>
+            <button class="btn btn-ghost btn-sm" onclick="showToast('Mengedit data ${d.nama}')"><i class="ti ti-edit"></i></button>
+            <button class="btn btn-ghost btn-sm" onclick="showCatatan(${d.id})"><i class="ti ti-message-dots"></i></button>
+          </div></td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+function showModalAddDesa(){
+  openModal('Tambah Desa Baru',`<div class="form-grid">
+    <div class="form-group"><label>Nama Desa</label><input class="form-input" placeholder="contoh: Desa Sukamaju"></div>
+    <div class="form-group"><label>Kode Desa</label><input class="form-input" placeholder="contoh: 3212010001"></div>
+    <div class="form-group"><label>Nama Kepala Desa</label><input class="form-input" placeholder="Nama lengkap"></div>
+    <div class="form-group"><label>Nomor Kontak</label><input class="form-input" placeholder="0812-xxxx-xxxx"></div>
+    <div class="form-group full"><label>Alamat Kantor Desa</label><input class="form-input" placeholder="Jl. Merdeka No. 1"></div>
+    <div class="form-group"><label>Status Web Desa</label><select class="form-select"><option>Belum Aktif</option><option>Draft</option><option>Aktif</option></select></div>
+    <div class="form-group"><label>Luas Wilayah (ha)</label><input class="form-input" type="number" placeholder="0"></div>
+    <div class="form-group full"><label>Visi Desa</label><textarea class="form-textarea" placeholder="Visi desa..."></textarea></div>
+  </div>
+  <div class="form-footer"><button class="btn btn-ghost" onclick="closeModal()">Batal</button><button class="btn btn-primary" onclick="closeModal();showToast('Data desa berhasil disimpan')">Simpan Data</button></div>`);
+}
+function showDesaDetail(id){
+  const d=desaList.find(x=>x.id===id);
+  openModal(`Detail — ${d.nama}`,`
+  <div style="padding:24px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+      <div><div style="font-size:11px;color:var(--muted);margin-bottom:4px">KODE DESA</div><div style="font-size:14px;font-weight:600">${d.kode}</div></div>
+      <div><div style="font-size:11px;color:var(--muted);margin-bottom:4px">KEPALA DESA</div><div style="font-size:14px;font-weight:600">${d.kepala}</div></div>
+      <div><div style="font-size:11px;color:var(--muted);margin-bottom:4px">JUMLAH PENDUDUK</div><div style="font-size:14px;font-weight:600">${d.penduduk.toLocaleString()} jiwa</div></div>
+      <div><div style="font-size:11px;color:var(--muted);margin-bottom:4px">JUMLAH KK</div><div style="font-size:14px;font-weight:600">${d.kk.toLocaleString()} KK</div></div>
+      <div><div style="font-size:11px;color:var(--muted);margin-bottom:4px">STATUS WEB</div>${badgeWeb(d.web)}</div>
+      <div><div style="font-size:11px;color:var(--muted);margin-bottom:4px">KELENGKAPAN DATA</div>${progressBar(d.lengkap)}</div>
+    </div>
+    <div style="background:var(--slate);border-radius:8px;padding:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px">CATATAN KECAMATAN</div>
+      <div style="font-size:13px;color:var(--text)">Mohon segera melengkapi data komoditas dan memperbarui profil desa. Web profil desa sudah dapat diaktifkan setelah data lengkap.</div>
+    </div>
+  </div>
+  <div class="form-footer"><button class="btn btn-ghost" onclick="closeModal()">Tutup</button><button class="btn btn-primary" onclick="closeModal();showToast('Membuka form edit')">Edit Data</button></div>`);
+}
+function showCatatan(id){
+  const d=desaList.find(x=>x.id===id);
+  openModal(`Catatan Kecamatan — ${d.nama}`,`
+  <div style="padding:20px 24px">
+    <div style="background:var(--slate);border-radius:8px;padding:16px;margin-bottom:16px">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px">CATATAN SEBELUMNYA — 10 Jun 2025</div>
+      <div style="font-size:13px;color:var(--text)">Harap segera perbarui data komoditas desa dan lengkapi foto perangkat desa.</div>
+    </div>
+    <div class="form-group" style="margin-bottom:12px"><label>Tambah Catatan Baru</label><textarea class="form-textarea" placeholder="Tulis catatan atau arahan untuk desa ini..."></textarea></div>
+  </div>
+  <div class="form-footer"><button class="btn btn-ghost" onclick="closeModal()">Batal</button><button class="btn btn-primary" onclick="closeModal();showToast('Catatan berhasil dikirim ke ${d.nama}')">Kirim Catatan</button></div>`);
 }
 
-function setActiveProdCat(el, cat) {
-  document.querySelectorAll('.prod-cat').forEach(b => b.classList.remove('active'));
+// --- MONOGRAFI ---
+function renderMonografi(el){
+  el.innerHTML=`
+  <div class="page-header">
+    <div class="page-title-main">Profil & Monografi Desa</div>
+    <div class="page-subtitle">Data kependudukan, sosial ekonomi, dan sarana prasarana</div>
+  </div>
+  <div class="card" style="margin-bottom:24px">
+    <div class="card-header"><div class="card-title">Pilih Desa</div></div>
+    <div class="search-bar">
+      <select class="filter-select" style="flex:1" id="selectMonografi" onchange="renderMonografiDesa(this.value)">
+        ${desaList.map(d=>`<option value="${d.id}">${d.nama}</option>`).join('')}
+      </select>
+    </div>
+  </div>
+  <div id="monografiContent"></div>`;
+  renderMonografiDesa(1);
+}
+function renderMonografiDesa(id){
+  const d=desaList.find(x=>x.id==id)||desaList[0];
+  document.getElementById('monografiContent').innerHTML=`
+  <div class="stat-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="stat-card">${iconBg('<i class="ti ti-users"></i>','#EBF3FD','var(--blue)')}<div class="stat-card-num" style="margin-top:12px">${d.penduduk.toLocaleString()}</div><div class="stat-card-label">Total Penduduk</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-home"></i>','#FEF7E0','var(--gold)')}<div class="stat-card-num" style="margin-top:12px">${d.kk.toLocaleString()}</div><div class="stat-card-label">Kepala Keluarga</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-gender-male"></i>','#E6F7EF','var(--green)')}<div class="stat-card-num" style="margin-top:12px">${Math.round(d.penduduk*0.51).toLocaleString()}</div><div class="stat-card-label">Laki-laki</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-gender-female"></i>','#FDEEEE','var(--red)')}<div class="stat-card-num" style="margin-top:12px">${Math.round(d.penduduk*0.49).toLocaleString()}</div><div class="stat-card-label">Perempuan</div></div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><div class="card-title">Data Pekerjaan</div></div>
+      <div style="padding:16px 24px">
+        ${[['Petani',38],['Wiraswasta',22],['Buruh',18],['PNS/TNI/Polri',8],['Pelajar',10],['Lainnya',4]].map(([n,v])=>`
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="font-size:13px;width:150px;flex-shrink:0">${n}</div>
+          ${progressBar(v)}
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Tingkat Pendidikan</div></div>
+      <div style="padding:16px 24px">
+        ${[['Tidak Sekolah',5],['SD / Sederajat',32],['SMP / Sederajat',28],['SMA / Sederajat',26],['Diploma/Sarjana',9]].map(([n,v])=>`
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="font-size:13px;width:160px;flex-shrink:0">${n}</div>
+          ${progressBar(v,'blue')}
+        </div>`).join('')}
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">Sarana & Prasarana</div><button class="btn btn-primary btn-sm" onclick="showToast('Menambah data sarana prasarana')"><i class="ti ti-plus"></i> Tambah</button></div>
+    <table>
+      <thead><tr><th>Nama Fasilitas</th><th>Kategori</th><th>Jumlah</th><th>Kondisi</th><th>Keterangan</th></tr></thead>
+      <tbody>
+        ${[
+          ['SD Negeri 01','Pendidikan',1,'Baik','—'],
+          ['SD Negeri 02','Pendidikan',1,'Baik','—'],
+          ['Puskesmas Pembantu','Kesehatan',1,'Baik','Buka Senin-Sabtu'],
+          ['Posyandu','Kesehatan',3,'Baik','—'],
+          ['Masjid Al-Ikhlas','Ibadah',4,'Baik','—'],
+          ['Gereja','Ibadah',1,'Baik','—'],
+          ['Balai Desa','Umum',1,'Baik','Renovasi 2023'],
+          ['Jalan Desa (Aspal)','Infrastruktur',1,'Cukup','2,5 km'],
+        ].map(([n,k,jml,kond,ket])=>`<tr>
+          <td style="font-weight:500">${n}</td>
+          <td>${badgeStatus(k==='Pendidikan'?'Tersedia':k==='Kesehatan'?'Tersedia':k==='Ibadah'?'Tersedia':'Tersedia').replace('Tersedia',k)}</td>
+          <td>${jml}</td>
+          <td><span class="badge ${kond==='Baik'?'badge-green':'badge-gold'}">${kond}</span></td>
+          <td style="color:var(--muted)">${ket}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+// --- KOMODITAS ---
+function renderKomoditas(el){
+  el.innerHTML=`
+  <div class="page-header">
+    <div class="page-title-main">Data Komoditas Desa</div>
+    <div class="page-subtitle">Pemetaan potensi ekonomi seluruh desa di kecamatan</div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-card">${iconBg('<i class="ti ti-leaf"></i>','#E6F7EF','var(--green)')}<div class="stat-card-num" style="margin-top:12px">47</div><div class="stat-card-label">Total Komoditas</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-star"></i>','#FEF7E0','var(--gold)')}<div class="stat-card-num" style="margin-top:12px">12</div><div class="stat-card-label">Komoditas Unggulan</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-category"></i>','#EBF3FD','var(--blue)')}<div class="stat-card-num" style="margin-top:12px">6</div><div class="stat-card-label">Kategori</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-home-2"></i>','#F3F0FF','#7C3AED')}<div class="stat-card-num" style="margin-top:12px">7</div><div class="stat-card-label">Desa Berkontribusi</div></div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div><div class="card-title">Daftar Komoditas</div></div>
+      <div class="card-actions">
+        <select class="filter-select" onchange="filterKomoditas(this.value)"><option value="">Semua Kategori</option><option>Pertanian</option><option>Perkebunan</option><option>Perikanan</option><option>Peternakan</option><option>UMKM</option><option>Kerajinan</option></select>
+        <button class="btn btn-primary btn-sm" onclick="showModalAddKomoditas()"><i class="ti ti-plus"></i> Tambah Komoditas</button>
+      </div>
+    </div>
+    <div class="komoditas-grid" id="komoditasGrid">
+      ${komoditasList.map(k=>`
+      <div class="komoditas-card" onclick="showKomoditasDetail(${k.id})">
+        <div class="komoditas-icon" style="background:var(--slate)">${k.icon}</div>
+        <div class="komoditas-name">${k.nama}</div>
+        <div class="komoditas-desa">${k.desa}</div>
+        <div class="komoditas-meta">
+          <span class="badge badge-blue">${k.kategori}</span>
+          ${k.unggulan?'<span class="badge badge-gold"><i class="ti ti-star" style="font-size:9px"></i> Unggulan</span>':''}
+        </div>
+        <div style="margin-top:10px;display:flex;gap:16px">
+          <div style="font-size:11px;color:var(--muted)">Produksi<br><span style="color:var(--text);font-weight:600">${k.produksi}</span></div>
+          <div style="font-size:11px;color:var(--muted)">Luas/Unit<br><span style="color:var(--text);font-weight:600">${k.luas}</span></div>
+        </div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+function filterKomoditas(kat){
+  const items=komoditasList.filter(k=>!kat||k.kategori===kat);
+  document.getElementById('komoditasGrid').innerHTML=items.map(k=>`
+  <div class="komoditas-card" onclick="showKomoditasDetail(${k.id})">
+    <div class="komoditas-icon" style="background:var(--slate)">${k.icon}</div>
+    <div class="komoditas-name">${k.nama}</div>
+    <div class="komoditas-desa">${k.desa}</div>
+    <div class="komoditas-meta"><span class="badge badge-blue">${k.kategori}</span>${k.unggulan?'<span class="badge badge-gold"><i class="ti ti-star" style="font-size:9px"></i> Unggulan</span>':''}</div>
+    <div style="margin-top:10px;display:flex;gap:16px">
+      <div style="font-size:11px;color:var(--muted)">Produksi<br><span style="color:var(--text);font-weight:600">${k.produksi}</span></div>
+      <div style="font-size:11px;color:var(--muted)">Luas/Unit<br><span style="color:var(--text);font-weight:600">${k.luas}</span></div>
+    </div>
+  </div>`).join('');
+}
+function showKomoditasDetail(id){
+  const k=komoditasList.find(x=>x.id===id);
+  openModal(`Detail Komoditas — ${k.nama}`,`
+  <div style="padding:24px">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+      <div style="width:64px;height:64px;background:var(--slate);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:36px">${k.icon}</div>
+      <div>
+        <div style="font-size:20px;font-weight:700">${k.nama}</div>
+        <div style="display:flex;gap:8px;margin-top:6px">
+          <span class="badge badge-blue">${k.kategori}</span>
+          ${k.unggulan?'<span class="badge badge-gold">Unggulan</span>':''}
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:var(--slate);border-radius:8px;padding:14px"><div style="font-size:11px;color:var(--muted)">DESA ASAL</div><div style="font-size:14px;font-weight:600;margin-top:4px">${k.desa}</div></div>
+      <div style="background:var(--slate);border-radius:8px;padding:14px"><div style="font-size:11px;color:var(--muted)">ESTIMASI PRODUKSI</div><div style="font-size:14px;font-weight:600;margin-top:4px">${k.produksi}</div></div>
+      <div style="background:var(--slate);border-radius:8px;padding:14px"><div style="font-size:11px;color:var(--muted)">LUAS / UNIT</div><div style="font-size:14px;font-weight:600;margin-top:4px">${k.luas}</div></div>
+      <div style="background:var(--slate);border-radius:8px;padding:14px"><div style="font-size:11px;color:var(--muted)">KATEGORI</div><div style="font-size:14px;font-weight:600;margin-top:4px">${k.kategori}</div></div>
+    </div>
+  </div>
+  <div class="form-footer"><button class="btn btn-ghost" onclick="closeModal()">Tutup</button><button class="btn btn-primary" onclick="closeModal();showToast('Mengedit komoditas ${k.nama}')">Edit</button></div>`);
+}
+function showModalAddKomoditas(){
+  openModal('Tambah Komoditas Baru',`<div class="form-grid">
+    <div class="form-group"><label>Nama Komoditas</label><input class="form-input" placeholder="contoh: Padi Sawah"></div>
+    <div class="form-group"><label>Kategori</label><select class="form-select"><option>Pertanian</option><option>Perkebunan</option><option>Perikanan</option><option>Peternakan</option><option>UMKM</option><option>Kerajinan</option></select></div>
+    <div class="form-group"><label>Desa Asal</label><select class="form-select">${desaList.map(d=>`<option>${d.nama}</option>`).join('')}</select></div>
+    <div class="form-group"><label>Estimasi Produksi</label><input class="form-input" placeholder="contoh: 48 ton/tahun"></div>
+    <div class="form-group"><label>Luas Lahan / Jumlah Unit</label><input class="form-input" placeholder="contoh: 12 ha"></div>
+    <div class="form-group"><label>Status Unggulan</label><select class="form-select"><option>Tidak</option><option>Ya — Unggulan</option></select></div>
+    <div class="form-group full"><label>Keterangan</label><textarea class="form-textarea" placeholder="Informasi tambahan..."></textarea></div>
+  </div>
+  <div class="form-footer"><button class="btn btn-ghost" onclick="closeModal()">Batal</button><button class="btn btn-primary" onclick="closeModal();showToast('Komoditas berhasil ditambahkan')">Simpan</button></div>`);
+}
+
+// --- PERANGKAT ---
+function renderPerangkat(el){
+  el.innerHTML=`
+  <div class="page-header">
+    <div class="page-title-main">Data Perangkat Desa</div>
+    <div class="page-subtitle">Struktur organisasi dan profil perangkat seluruh desa</div>
+  </div>
+  <div class="two-col" style="margin-bottom:24px">
+    <div class="card">
+      <div class="card-header"><div class="card-title">Struktur Organisasi</div><div class="card-subtitle">Desa Sukamaju — Contoh</div></div>
+      <div style="padding:24px;display:flex;flex-direction:column;align-items:center;gap:0">
+        <div style="background:var(--blue);color:var(--white);border-radius:10px;padding:12px 24px;font-size:13px;font-weight:600;text-align:center;min-width:200px">
+          <div style="font-size:10px;opacity:0.8;margin-bottom:2px">KEPALA DESA</div>H. Subandi
+        </div>
+        <div style="width:2px;height:24px;background:var(--slate2)"></div>
+        <div style="background:var(--slate);border:1px solid var(--slate2);border-radius:10px;padding:12px 24px;font-size:13px;font-weight:600;text-align:center;min-width:200px">
+          <div style="font-size:10px;color:var(--muted);margin-bottom:2px">SEKRETARIS DESA</div>Ahmad Ridwan, S.Sos
+        </div>
+        <div style="width:2px;height:24px;background:var(--slate2)"></div>
+        <div style="display:flex;gap:16px">
+          ${[['Kaur Keuangan','Dewi Lestari'],['Kasi Pelayanan','Rudi Hartono'],['Kaur TU','Sri Wahyuni']].map(([jab,nama])=>`
+          <div style="background:var(--slate);border:1px solid var(--slate2);border-radius:8px;padding:10px 16px;font-size:12px;text-align:center">
+            <div style="color:var(--muted);margin-bottom:2px">${jab}</div><div style="font-weight:600">${nama}</div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Job Desk Jabatan</div></div>
+      <div style="padding:16px 24px">
+        ${[
+          ['Kepala Desa','Memimpin penyelenggaraan pemerintahan desa'],
+          ['Sekretaris Desa','Mengoordinasikan urusan ketatausahaan'],
+          ['Kasi Pelayanan','Mengurus pelayanan publik desa'],
+          ['Kaur Keuangan','Mengelola administrasi keuangan desa'],
+          ['Kepala Dusun','Membantu tugas Kepala Desa di tingkat dusun'],
+        ].map(([jab,desk])=>`
+        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--slate)">
+          <div style="font-size:13px;font-weight:600;margin-bottom:3px">${jab}</div>
+          <div style="font-size:12px;color:var(--muted)">${desk}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div><div class="card-title">Profil Perangkat Desa</div><div class="card-subtitle">${perangkatList.length} perangkat terdaftar</div></div>
+      <div class="card-actions">
+        <select class="filter-select" onchange="filterTable(this,'tblPerangkat',2,'select')"><option value="">Semua Desa</option>${desaList.map(d=>`<option>${d.nama}</option>`).join('')}</select>
+        <button class="btn btn-primary btn-sm" onclick="showModalAddPerangkat()"><i class="ti ti-plus"></i> Tambah Perangkat</button>
+      </div>
+    </div>
+    <table id="tblPerangkat">
+      <thead><tr><th>Nama</th><th>Jabatan</th><th>Desa</th><th>Kontak</th><th>Masa Jabatan</th><th>Status</th><th>Aksi</th></tr></thead>
+      <tbody>
+        ${perangkatList.map(p=>`<tr>
+          <td><div style="display:flex;align-items:center;gap:8px">${avatarEl(p.nama,'var(--blue)')}<span style="font-weight:500">${p.nama}</span></div></td>
+          <td>${p.jabatan}</td>
+          <td><span class="badge badge-blue">${p.desa.replace('Desa ','')}</span></td>
+          <td style="color:var(--muted)">${p.kontak}</td>
+          <td style="color:var(--muted)">Sejak ${p.mulai}</td>
+          <td>${badgeStatus(p.status)}</td>
+          <td><div style="display:flex;gap:6px">
+            <button class="btn btn-ghost btn-sm" onclick="showToast('Melihat profil ${p.nama}')"><i class="ti ti-eye"></i></button>
+            <button class="btn btn-ghost btn-sm" onclick="showToast('Mengedit data ${p.nama}')"><i class="ti ti-edit"></i></button>
+          </div></td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+function showModalAddPerangkat(){
+  openModal('Tambah Perangkat Desa',`<div class="form-grid">
+    <div class="form-group"><label>Nama Lengkap</label><input class="form-input" placeholder="Nama perangkat desa"></div>
+    <div class="form-group"><label>Jabatan</label><select class="form-select"><option>Kepala Desa</option><option>Sekretaris Desa</option><option>Kasi Pelayanan</option><option>Kaur Keuangan</option><option>Kaur TU</option><option>Kepala Dusun</option><option>Ketua RT</option><option>Ketua RW</option></select></div>
+    <div class="form-group"><label>Desa</label><select class="form-select">${desaList.map(d=>`<option>${d.nama}</option>`).join('')}</select></div>
+    <div class="form-group"><label>No. Kontak</label><input class="form-input" placeholder="0812-xxxx-xxxx"></div>
+    <div class="form-group"><label>Mulai Menjabat</label><input class="form-input" type="date"></div>
+    <div class="form-group"><label>Status</label><select class="form-select"><option>Aktif</option><option>Nonaktif</option><option>Pindah</option></select></div>
+    <div class="form-group full"><label>Alamat</label><input class="form-input" placeholder="Alamat tempat tinggal"></div>
+  </div>
+  <div class="form-footer"><button class="btn btn-ghost" onclick="closeModal()">Batal</button><button class="btn btn-primary" onclick="closeModal();showToast('Data perangkat berhasil disimpan')">Simpan</button></div>`);
+}
+
+// --- BERITA ---
+function renderBerita(el){
+  el.innerHTML=`
+  <div class="page-header">
+    <div class="page-title-main">Berita & Kegiatan Desa</div>
+    <div class="page-subtitle">Pantau publikasi dan agenda dari seluruh desa</div>
+  </div>
+  <div class="tabs" id="beritaTabs">
+    <div class="tab active" onclick="switchTab('berita','rekap',this)">Rekap Berita</div>
+    <div class="tab" onclick="switchTab('berita','kalender',this)">Kalender Kegiatan</div>
+    <div class="tab" onclick="switchTab('berita','galeri',this)">Galeri Kegiatan</div>
+  </div>
+  <div id="beritaTabContent"></div>`;
+  renderBeritaTab('rekap');
+}
+function switchTab(page,tab,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById('prodCatFilter').value = cat;
-  filterProducts();
+  if(page==='berita')renderBeritaTab(tab);
 }
-
-// ══ MODAL ══
-function openNewsModal(title, desc, icon, bg) {
-  document.getElementById('modalTitle').textContent = title;
-  document.getElementById('modalImg').style.background = bg || '#e8f5e9';
-  document.getElementById('modalImg').innerHTML = `<span style="font-size:5rem">${icon}</span>`;
-  document.getElementById('modalMeta').innerHTML = `<span class="news-badge badge-green">Berita Desa</span><span class="news-meta" style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--muted)">📅 13 Jun 2025 · 👁 1.2k views</span>`;
-  document.getElementById('modalContent').innerHTML = `<p>${desc}</p><p>Seluruh warga desa diharapkan dapat mendukung program ini dengan berpartisipasi aktif dan menjaga kelancaran pelaksanaan kegiatan. Informasi lebih lanjut dapat menghubungi kantor desa di jam kerja.</p>`;
-  document.getElementById('modalActions').innerHTML = `<button class="btn-primary" onclick="showToast('📢 Tautan berita telah disalin!')">↗ Bagikan Berita</button><button class="btn-outline" style="color:var(--forest);border-color:var(--paper)" onclick="closeModal()">Tutup</button>`;
-  document.getElementById('modalOverlay').classList.add('open');
-}
-
-function openProductModal(id) {
-  const p = products.find(x => x.id === id);
-  if (!p) return;
-  document.getElementById('modalTitle').textContent = p.name;
-  document.getElementById('modalImg').style.background = p.color;
-  document.getElementById('modalImg').innerHTML = `<span style="font-size:5rem">${p.icon}</span>`;
-  document.getElementById('modalMeta').innerHTML = `<span class="news-badge badge-green">${p.cat}</span><span class="product-badge-avail ${p.avail?'avail':'kosong'}" style="position:static">${p.avail?'✓ Tersedia':'✗ Kosong'}</span>`;
-  document.getElementById('modalContent').innerHTML = `
-    <p><strong style="color:var(--forest)">Harga:</strong> ${p.price} ${p.unit}</p>
-    <p><strong style="color:var(--forest)">Pelapak:</strong> ${p.seller}</p>
-    <p>Produk unggulan desa yang diproduksi secara lokal oleh pelaku UMKM desa. Kualitas terjamin dan mendukung perekonomian masyarakat desa langsung.</p>
-    <p><strong style="color:var(--forest)">Cara Pembelian:</strong> Hubungi pelapak melalui WhatsApp untuk konfirmasi ketersediaan, pemesanan, dan informasi pengiriman.</p>
-  `;
-  document.getElementById('modalActions').innerHTML = `
-    <button class="btn-wa" style="flex:1;padding:0.75rem" onclick="showToast('📱 Membuka WhatsApp pelapak...');closeModal()">💬 Hubungi via WhatsApp</button>
-    <button class="btn-share" onclick="shareProduct('${p.name}')">↗</button>
-  `;
-  document.getElementById('modalOverlay').classList.add('open');
-}
-
-function closeModal(e) {
-  if (!e || e.target === document.getElementById('modalOverlay')) {
-    document.getElementById('modalOverlay').classList.remove('open');
+function renderBeritaTab(tab){
+  const c=document.getElementById('beritaTabContent');
+  if(tab==='rekap'){
+    c.innerHTML=`<div class="card" style="border-radius:0 0 var(--radius) var(--radius)">
+      <div class="card-header">
+        <div><div class="card-title">Daftar Berita</div><div class="card-subtitle">${beritaList.length} berita dari seluruh desa</div></div>
+        <div class="card-actions">
+          <select class="filter-select" onchange="filterTable(this,'tblBerita',1,'select')"><option value="">Semua Desa</option>${desaList.map(d=>`<option>${d.nama}</option>`).join('')}</select>
+          <select class="filter-select" onchange="filterTable(this,'tblBerita',4,'select')"><option value="">Semua Status</option><option>Terbit</option><option>Draft</option><option>Arsip</option></select>
+        </div>
+      </div>
+      <table id="tblBerita">
+        <thead><tr><th>Judul Berita</th><th>Desa</th><th>Kategori</th><th>Tanggal</th><th>Status</th><th>Views</th><th>Aksi</th></tr></thead>
+        <tbody>
+          ${beritaList.map(b=>`<tr>
+            <td><div style="font-weight:600;max-width:280px">${b.judul}</div></td>
+            <td><span class="badge badge-blue">${b.desa.replace('Desa ','')}</span></td>
+            <td>${b.kategori}</td>
+            <td style="color:var(--muted)">${b.tanggal}</td>
+            <td>${badgeStatus(b.status)}</td>
+            <td style="color:var(--muted)">${b.views}</td>
+            <td><div style="display:flex;gap:6px">
+              <button class="btn btn-ghost btn-sm" onclick="showToast('Membuka berita: ${b.judul.substring(0,20)}...')"><i class="ti ti-eye"></i></button>
+              <button class="btn btn-ghost btn-sm" onclick="showToast('Mengedit berita')"><i class="ti ti-edit"></i></button>
+            </div></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+  } else if(tab==='kalender'){
+    const today=16;
+    const events={8:'Musdes Sukamaju',12:'Posyandu Mekarjaya',16:'Rapat Kecamatan',20:'Panen Ciawi',24:'PKK Karanganyar',28:'Gotong Royong'};
+    const days=[];
+    for(let i=0;i<4;i++)days.push('');
+    for(let i=1;i<=30;i++)days.push(i);
+    c.innerHTML=`<div class="card" style="border-radius:0 0 var(--radius) var(--radius)">
+      <div class="calendar">
+        <div class="cal-header">
+          <button class="cal-nav" onclick="showToast('Bulan sebelumnya')"><i class="ti ti-chevron-left"></i></button>
+          <div class="cal-month">Juni 2025</div>
+          <button class="cal-nav" onclick="showToast('Bulan berikutnya')"><i class="ti ti-chevron-right"></i></button>
+        </div>
+        <div class="cal-grid">
+          ${['Min','Sen','Sel','Rab','Kam','Jum','Sab'].map(d=>`<div class="cal-day-header">${d}</div>`).join('')}
+          ${days.map((d,i)=>d===''?`<div class="cal-day other-month"></div>`:`
+          <div class="cal-day ${d==today?'today':''}" onclick="showToast('${events[d]?events[d]:'Tidak ada kegiatan'} — ${d} Juni 2025')">
+            <div class="cal-day-num">${d}</div>
+            ${events[d]?`<div class="cal-event ${d==today?'gold':d%3==0?'green':''}">${events[d]}</div>`:''}`+`</div>`).join('')}
+        </div>
+      </div>
+      <div style="padding:0 24px 20px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:12px;color:var(--muted)">KEGIATAN MENDATANG</div>
+        ${Object.entries(events).filter(([d])=>d>=today).map(([d,e])=>`
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--slate)">
+          <div style="width:40px;text-align:center;font-size:20px;font-weight:700;color:var(--blue)">${d}</div>
+          <div style="width:1px;height:40px;background:var(--slate2)"></div>
+          <div><div style="font-size:13px;font-weight:500">${e}</div><div style="font-size:11px;color:var(--muted)">${d} Juni 2025</div></div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  } else if(tab==='galeri'){
+    c.innerHTML=`<div class="card" style="border-radius:0 0 var(--radius) var(--radius)">
+      <div class="card-header"><div class="card-title">Galeri Kegiatan Desa</div><button class="btn btn-primary btn-sm" onclick="showToast('Upload foto kegiatan')"><i class="ti ti-upload"></i> Upload Foto</button></div>
+      <div class="gallery-grid">
+        ${[
+          ['ti-camera','Musdes Sukamaju','Jun 10'],['ti-plant','Panen Ciawi','Jun 8'],
+          ['ti-users','Gotong Royong','Jun 7'],['ti-heart','Posyandu Mekarjaya','Jun 3'],
+          ['ti-building','Renovasi Balai Desa','Jun 1'],['ti-briefcase','Pelatihan UMKM','Mei 28'],
+          ['ti-map','Pemetaan Desa','Mei 25'],['ti-trophy','Lomba 17 Agustus','Mei 20'],
+        ].map(([ic,nama,tgl])=>`
+        <div class="gallery-item" onclick="showToast('Membuka foto: ${nama}')">
+          <div class="gallery-placeholder"><i class="ti ${ic}"></i><span style="font-size:11px">${nama}</span><span style="font-size:10px;color:var(--muted)">${tgl}</span></div>
+          <div class="gallery-overlay"><i class="ti ti-eye"></i></div>
+        </div>`).join('')}
+      </div>
+    </div>`;
   }
 }
 
-function shareProduct(name) {
-  if (navigator.share) {
-    navigator.share({ title: name, text: `Lihat produk: ${name} di Lapak Kampung Desa Nusantara Indah!`, url: window.location.href });
-  } else {
-    showToast('🔗 Tautan produk telah disalin!');
-  }
+// --- LAPAK ---
+function renderLapak(el){
+  el.innerHTML=`
+  <div class="page-header">
+    <div class="page-title-main">Lapak Desa / Produk Unggulan</div>
+    <div class="page-subtitle">Katalog produk UMKM dan produk unggulan kecamatan</div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-card">${iconBg('<i class="ti ti-shopping-bag"></i>','#EBF3FD','var(--blue)')}<div class="stat-card-num" style="margin-top:12px">156</div><div class="stat-card-label">Total Produk</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-star"></i>','#FEF7E0','var(--gold)')}<div class="stat-card-num" style="margin-top:12px">18</div><div class="stat-card-label">Produk Unggulan</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-user-check"></i>','#E6F7EF','var(--green)')}<div class="stat-card-num" style="margin-top:12px">42</div><div class="stat-card-label">Pelapak Aktif</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-check-circle"></i>','#F3F0FF','#7C3AED')}<div class="stat-card-num" style="margin-top:12px">134</div><div class="stat-card-label">Produk Tersedia</div></div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div><div class="card-title">Katalog Produk Desa</div></div>
+      <div class="card-actions">
+        <select class="filter-select" id="lapakFilter"><option value="">Semua Kategori</option><option>Makanan</option><option>Minuman</option><option>Pertanian</option><option>Kerajinan</option><option>Perikanan</option></select>
+        <button class="btn btn-primary btn-sm" onclick="showModalAddProduk()"><i class="ti ti-plus"></i> Tambah Produk</button>
+      </div>
+    </div>
+    <div class="product-grid">
+      ${produkList.map(p=>`
+      <div class="product-card" onclick="showProdukDetail(${p.id})">
+        <div class="product-img">${p.ikon}</div>
+        <div class="product-body">
+          <div class="product-name">${p.nama}</div>
+          <div class="product-desa">${p.desa} · ${p.pelapak}</div>
+          <div class="product-price">${p.harga} <span class="product-price-label">/ ${p.satuan}</span></div>
+          <div class="product-footer">
+            ${badgeStatus(p.stok)}
+            <span class="badge badge-blue">${p.kategori}</span>
+          </div>
+        </div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+function showProdukDetail(id){
+  const p=produkList.find(x=>x.id===id);
+  openModal(`Detail Produk — ${p.nama}`,`
+  <div style="padding:24px">
+    <div style="display:flex;gap:20px;margin-bottom:20px">
+      <div style="width:100px;height:100px;background:var(--slate);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:56px;flex-shrink:0">${p.ikon}</div>
+      <div>
+        <div style="font-size:20px;font-weight:700;margin-bottom:6px">${p.nama}</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:8px">${p.pelapak} — ${p.desa}</div>
+        <div style="font-size:22px;font-weight:700;color:var(--blue)">${p.harga}<span style="font-size:13px;font-weight:400;color:var(--muted)"> / ${p.satuan}</span></div>
+        <div style="margin-top:8px;display:flex;gap:8px">${badgeStatus(p.stok)}<span class="badge badge-blue">${p.kategori}</span></div>
+      </div>
+    </div>
+    <div style="background:var(--slate);border-radius:8px;padding:14px;font-size:13px;color:var(--muted)">
+      Produk unggulan dari ${p.desa}. Hubungi pelapak langsung untuk pemesanan dalam jumlah banyak atau pengiriman ke luar kecamatan.
+    </div>
+  </div>
+  <div class="form-footer">
+    <button class="btn btn-ghost" onclick="closeModal()">Tutup</button>
+    <button class="btn btn-gold" onclick="closeModal();showToast('Menghubungi ${p.pelapak} via WhatsApp')"><i class="ti ti-brand-whatsapp"></i> Hubungi Pelapak</button>
+    <button class="btn btn-primary" onclick="closeModal();showToast('Menandai sebagai Produk Unggulan')"><i class="ti ti-star"></i> Tandai Unggulan</button>
+  </div>`);
+}
+function showModalAddProduk(){
+  openModal('Tambah Produk Lapak',`<div class="form-grid">
+    <div class="form-group"><label>Nama Produk</label><input class="form-input" placeholder="Nama produk"></div>
+    <div class="form-group"><label>Kategori</label><select class="form-select"><option>Makanan</option><option>Minuman</option><option>Pertanian</option><option>Kerajinan</option><option>Perikanan</option><option>Peternakan</option><option>UMKM</option></select></div>
+    <div class="form-group"><label>Desa Pelapak</label><select class="form-select">${desaList.map(d=>`<option>${d.nama}</option>`).join('')}</select></div>
+    <div class="form-group"><label>Nama Pelapak</label><input class="form-input" placeholder="Nama pemilik produk"></div>
+    <div class="form-group"><label>Harga</label><input class="form-input" placeholder="Rp 0"></div>
+    <div class="form-group"><label>Satuan Jual</label><input class="form-input" placeholder="contoh: kg, bungkus, buah"></div>
+    <div class="form-group"><label>No. WhatsApp Pelapak</label><input class="form-input" placeholder="0812-xxxx-xxxx"></div>
+    <div class="form-group"><label>Status Stok</label><select class="form-select"><option>Tersedia</option><option>Terbatas</option><option>Kosong</option></select></div>
+    <div class="form-group full"><label>Deskripsi Produk</label><textarea class="form-textarea" placeholder="Deskripsi singkat produk..."></textarea></div>
+  </div>
+  <div class="form-footer"><button class="btn btn-ghost" onclick="closeModal()">Batal</button><button class="btn btn-primary" onclick="closeModal();showToast('Produk berhasil ditambahkan')">Simpan</button></div>`);
 }
 
-// ══ MONOGRAFI TABS ══
-function switchMono(el, panel) {
-  document.querySelectorAll('.mono-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.mono-panel').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('panel-' + panel).classList.add('active');
+// --- ASET ---
+function renderAset(el){
+  el.innerHTML=`
+  <div class="page-header">
+    <div class="page-title-main">Aset Desa</div>
+    <div class="page-subtitle">Pencatatan dan monitoring aset milik seluruh desa</div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-card">${iconBg('<i class="ti ti-map-pin"></i>','#E6F7EF','var(--green)')}<div class="stat-card-num" style="margin-top:12px">18</div><div class="stat-card-label">Bidang Tanah</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-building"></i>','#EBF3FD','var(--blue)')}<div class="stat-card-num" style="margin-top:12px">34</div><div class="stat-card-label">Bangunan</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-package"></i>','#FEF7E0','var(--gold)')}<div class="stat-card-num" style="margin-top:12px">127</div><div class="stat-card-label">Inventaris</div></div>
+    <div class="stat-card">${iconBg('<i class="ti ti-alert-circle"></i>','#FDEEEE','var(--red)')}<div class="stat-card-num" style="margin-top:12px">5</div><div class="stat-card-label">Perlu Perhatian</div></div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div><div class="card-title">Daftar Aset Desa</div><div class="card-subtitle">${asetList.length} aset ditampilkan</div></div>
+      <div class="card-actions">
+        <select class="filter-select" onchange="filterTable(this,'tblAset',0,'select')"><option value="">Semua Tipe</option><option>Tanah</option><option>Bangunan</option><option>Inventaris</option></select>
+        <button class="btn btn-primary btn-sm" onclick="showModalAddAset()"><i class="ti ti-plus"></i> Tambah Aset</button>
+      </div>
+    </div>
+    <table id="tblAset">
+      <thead><tr><th>Nama Aset</th><th>Tipe</th><th>Desa</th><th>Luas</th><th>Nilai Estimasi</th><th>Status</th><th>Aksi</th></tr></thead>
+      <tbody>
+        ${asetList.map(a=>`<tr>
+          <td><div style="font-weight:600">${a.nama}</div><div style="font-size:11px;color:var(--muted)">${a.keterangan}</div></td>
+          <td>${badgeStatus(a.tipe==='Tanah'?'Tersedia':a.tipe==='Bangunan'?'Tersedia':'Tersedia').replace('Tersedia',a.tipe)}</td>
+          <td><span class="badge badge-blue">${a.desa.replace('Desa ','')}</span></td>
+          <td style="color:var(--muted)">${a.luas}</td>
+          <td style="font-weight:600">${a.nilai}</td>
+          <td>${badgeStatus(a.status)}</td>
+          <td><div style="display:flex;gap:6px">
+            <button class="btn btn-ghost btn-sm" onclick="showToast('Detail aset: ${a.nama}')"><i class="ti ti-eye"></i></button>
+            <button class="btn btn-ghost btn-sm" onclick="showToast('Upload dokumen aset')"><i class="ti ti-upload"></i></button>
+            <button class="btn btn-ghost btn-sm" onclick="showToast('Geotag aset di peta')"><i class="ti ti-map-pin"></i></button>
+          </div></td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+function showModalAddAset(){
+  openModal('Tambah Aset Desa',`<div class="form-grid">
+    <div class="form-group"><label>Nama Aset</label><input class="form-input" placeholder="Nama aset"></div>
+    <div class="form-group"><label>Tipe Aset</label><select class="form-select"><option>Tanah</option><option>Bangunan</option><option>Inventaris</option></select></div>
+    <div class="form-group"><label>Desa</label><select class="form-select">${desaList.map(d=>`<option>${d.nama}</option>`).join('')}</select></div>
+    <div class="form-group"><label>Luas / Jumlah</label><input class="form-input" placeholder="contoh: 1.200 m²"></div>
+    <div class="form-group"><label>Nilai Estimasi (Rp)</label><input class="form-input" placeholder="contoh: 96.000.000"></div>
+    <div class="form-group"><label>Status</label><select class="form-select"><option>Aktif</option><option>Rusak Ringan</option><option>Rusak Berat</option><option>Tidak Digunakan</option><option>Dipinjamkan</option></select></div>
+    <div class="form-group full"><label>Keterangan / Dokumen</label><textarea class="form-textarea" placeholder="Nomor sertifikat, kondisi, atau catatan penting..."></textarea></div>
+    <div class="form-group full"><label>Koordinat (Lat, Lng)</label><input class="form-input" placeholder="contoh: -2.9761, 104.7754"></div>
+  </div>
+  <div class="form-footer"><button class="btn btn-ghost" onclick="closeModal()">Batal</button><button class="btn btn-primary" onclick="closeModal();showToast('Data aset berhasil disimpan')">Simpan</button></div>`);
 }
 
-// ══ TOAST ══
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+// --- PENGGUNA ---
+function renderPengguna(el){
+  el.innerHTML=`
+  <div class="page-header">
+    <div class="page-title-main">Pengguna & Hak Akses</div>
+    <div class="page-subtitle">Kelola akun, role, dan pembatasan akses data per desa</div>
+  </div>
+  <div class="two-col" style="margin-bottom:24px">
+    <div class="card">
+      <div class="card-header"><div class="card-title">Role & Hak Akses</div></div>
+      <div class="role-grid">
+        ${[
+          ['ti-shield-check','var(--blue)','Super Admin','1 akun','Akses penuh semua modul dan semua desa',true,true,true,true],
+          ['ti-user-check','var(--green)','Admin Kecamatan','2 akun','Lihat semua data, verifikasi, dan cetak laporan',true,true,true,false],
+          ['ti-pencil','var(--gold)','Operator Desa','7 akun','Edit data desa sendiri, tidak bisa hapus',true,true,false,false],
+          ['ti-eye','var(--muted)','Viewer','2 akun','Hanya lihat data, tidak bisa edit',true,false,false,false],
+        ].map(([ic,col,role,count,desc,...perms])=>`
+        <div class="role-card">
+          <div class="role-header">
+            <div class="role-icon" style="background:var(--slate);color:${col}"><i class="ti ${ic}"></i></div>
+            <div><div class="role-name">${role}</div><div class="role-count">${count}</div></div>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:12px">${desc}</div>
+          <div class="permission-list">
+            ${['Lihat Data','Edit Data','Hapus Data','Manajemen User'].map((p,i)=>`
+            <div class="permission-item"><span>${p}</span><div class="toggle ${perms[i]?'on':'off'}" onclick="showToast('Mengubah izin ${p} untuk ${role}')"></div></div>`).join('')}
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Log Aktivitas</div></div>
+      <div>
+        ${[
+          ['Tambah Data','badge-green','Admin Kecamatan menambah komoditas baru di Desa Sukamaju','5 menit lalu'],
+          ['Login','badge-blue','op.mekarjaya@desa.go.id berhasil masuk','12 menit lalu'],
+          ['Edit Data','badge-gold','Data perangkat Desa Ciawi diperbarui','1 jam lalu'],
+          ['Hapus Data','badge-red','Berita draft dihapus oleh Admin Kecamatan','2 jam lalu'],
+          ['Login Gagal','badge-red','Percobaan login gagal 3x untuk akun desa','3 jam lalu'],
+          ['Validasi','badge-green','Admin memvalidasi data monografi Desa Karanganyar','5 jam lalu'],
+          ['Reset Password','badge-gold','Password direset untuk op.cibeureum','Kemarin'],
+        ].map(([tipe,badge,msg,time])=>`
+        <div class="log-entry">
+          <div class="log-type"><span class="badge ${badge}" style="font-size:10px">${tipe}</span></div>
+          <div><div class="log-msg">${msg}</div></div>
+          <div class="log-time">${time}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div><div class="card-title">Manajemen Akun Pengguna</div><div class="card-subtitle">${userList.length} akun terdaftar</div></div>
+      <div class="card-actions">
+        <button class="btn btn-ghost btn-sm" onclick="showToast('Mengirim reset password masal')"><i class="ti ti-mail"></i> Kirim Reset</button>
+        <button class="btn btn-primary btn-sm" onclick="showModalAddUser()"><i class="ti ti-plus"></i> Tambah Pengguna</button>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th>Nama</th><th>Email</th><th>Role</th><th>Akses Desa</th><th>Status</th><th>Login Terakhir</th><th>Aksi</th></tr></thead>
+      <tbody>
+        ${userList.map(u=>`<tr>
+          <td><div style="display:flex;align-items:center;gap:8px">${avatarEl(u.nama,u.role==='Super Admin'?'var(--blue)':u.role==='Operator Desa'?'var(--green)':'var(--muted)')}<span style="font-weight:500">${u.nama}</span></div></td>
+          <td style="color:var(--muted)">${u.email}</td>
+          <td><span class="badge ${u.role==='Super Admin'?'badge-blue':u.role==='Operator Desa'?'badge-green':u.role==='Admin Kecamatan'?'badge-gold':'badge-gray'}">${u.role}</span></td>
+          <td style="font-size:12px;color:var(--muted)">${u.desa}</td>
+          <td>${badgeStatus(u.status)}</td>
+          <td style="font-size:12px;color:var(--muted)">${u.terakhir}</td>
+          <td><div style="display:flex;gap:6px">
+            <button class="btn btn-ghost btn-sm" onclick="showToast('Mengedit akun ${u.nama}')"><i class="ti ti-edit"></i></button>
+            <button class="btn btn-ghost btn-sm" onclick="showToast('Reset password ${u.nama}')"><i class="ti ti-lock-open"></i></button>
+            <button class="btn btn-danger btn-sm" onclick="showToast('${u.nama} dinonaktifkan')"><i class="ti ti-user-off"></i></button>
+          </div></td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+function showModalAddUser(){
+  openModal('Tambah Pengguna Baru',`<div class="form-grid">
+    <div class="form-group"><label>Nama Lengkap</label><input class="form-input" placeholder="Nama pengguna"></div>
+    <div class="form-group"><label>Email</label><input class="form-input" type="email" placeholder="email@contoh.go.id"></div>
+    <div class="form-group"><label>Role</label><select class="form-select"><option>Operator Desa</option><option>Viewer</option><option>Admin Kecamatan</option><option>Super Admin</option></select></div>
+    <div class="form-group"><label>Akses Desa</label><select class="form-select"><option>Semua Desa</option>${desaList.map(d=>`<option>${d.nama}</option>`).join('')}</select></div>
+    <div class="form-group"><label>Password Awal</label><input class="form-input" type="password" placeholder="••••••••"></div>
+    <div class="form-group"><label>Konfirmasi Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
+  </div>
+  <div class="form-footer"><button class="btn btn-ghost" onclick="closeModal()">Batal</button><button class="btn btn-primary" onclick="closeModal();showToast('Akun pengguna berhasil dibuat dan email konfirmasi dikirim')">Buat Akun</button></div>`);
 }
 
-// ══ FORM ══
-function submitSaran() {
-  showToast('✅ Saran Anda telah berhasil dikirim! Terima kasih.');
-}
-
-// ══ NAV SCROLL ══
-window.addEventListener('scroll', () => {
-  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
-});
-
-// ══ COUNTER ANIM ══
-function animateCounter(el, target) {
-  let cur = 0;
-  const step = target / 60;
-  const timer = setInterval(() => {
-    cur = Math.min(cur + step, target);
-    el.textContent = Math.floor(cur).toLocaleString('id-ID');
-    if (cur >= target) clearInterval(timer);
-  }, 16);
-}
-
-// ══ FADE IN ON SCROLL ══
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.15 });
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-// Counter observer
-const counterObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      document.querySelectorAll('.num[data-target]').forEach(el => {
-        animateCounter(el, parseInt(el.dataset.target));
-      });
-      counterObs.disconnect();
-    }
+// --- FILTER HELPER ---
+function filterTable(el,tblId,col,type){
+  const val=el.value.toLowerCase();
+  const rows=document.getElementById(tblId)?.querySelectorAll('tbody tr')||[];
+  rows.forEach(r=>{
+    const cell=r.cells[col];
+    if(!cell){r.style.display='';return;}
+    const text=cell.textContent.toLowerCase();
+    r.style.display=(val===''||text.includes(val))?'':'none';
   });
-}, { threshold: 0.5 });
-const heroStats = document.querySelector('.hero-stats');
-if (heroStats) counterObs.observe(heroStats);
-
-// ══ HAMBURGER ══
-function toggleMenu() {
-  document.getElementById('navLinks').classList.toggle('open');
 }
 
-// ══ INIT ══
-renderNews(newsData);
-renderProducts(products);
+// =========== LANDING COUNTERS ===========
+function animateCounter(id,target,suffix,duration){
+  const el=document.getElementById(id);
+  if(!el)return;
+  let start=0;const step=target/60;
+  const timer=setInterval(()=>{
+    start=Math.min(start+step,target);
+    el.textContent=Math.floor(start).toLocaleString()+(suffix||'');
+    if(start>=target)clearInterval(timer);
+  },duration/60);
+}
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    animateCounter('cnt1',7,'',1200);
+    animateCounter('cnt2',23501,'',1500);
+    animateCounter('cnt3',47,'',1000);
+    animateCounter('cnt4',156,'',1300);
+  },500);
+});
 </script>
 </body>
 </html>
